@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamagable
 {
     [SerializeField] private Ability activeAbility;
-    public Ability ActiveAbility => activeAbility;
+
+    [SerializeField] private PlayerStats playerStats;
+
+    [SerializeField] private Stats stats;
+    public Stats Stats => stats;
 
     // Start is called before the first frame update
     void Start()
     {
+        InitStats();
         EventsManager.OnAbilityChosen += GetActiveAbility;
     }
 
@@ -35,5 +40,40 @@ public class Player : MonoBehaviour
     private void GetActiveAbility(Ability ability)
     {
         activeAbility = ability;
+    }
+
+    private void InitStats()
+    {
+        stats.CurrentHealth = playerStats.MaxHealth;
+        stats.MovementSpeed = playerStats.MovementSpeed;
+        stats.MovementSpeedBackwards = playerStats.MovementSpeedBackwards;
+        stats.MaxHealth = playerStats.MaxHealth;
+    }
+
+    public void TakeDamage(int value)
+    {
+        stats.CurrentHealth -= value;
+
+        Die();
+    }
+
+    public void Heal(int value)
+    {
+        if (stats.CurrentHealth <= stats.MaxHealth)
+        {
+            stats.CurrentHealth += value;
+        }
+        if (stats.CurrentHealth > stats.MaxHealth)
+        {
+            stats.CurrentHealth = stats.MaxHealth;
+        }
+    }
+
+    private void Die()
+    {
+        if (stats.CurrentHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

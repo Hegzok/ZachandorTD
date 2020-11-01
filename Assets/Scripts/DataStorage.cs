@@ -13,11 +13,15 @@ public class DataStorage : MonoBehaviour
     [SerializeField] private Ability emptyAbility;
     public static Ability EmptyAbility;
 
+    [SerializeField] private Player player;
+    public static Player Player;
+
     private void Awake()
     {
         MouseInfo = mouseInfo;
         PlayerHand = playerHand;
         EmptyAbility = emptyAbility;
+        Player = player;
     }
 
 }

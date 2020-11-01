@@ -11,6 +11,7 @@ public class FireBall : Ability
     void Start()
     {
         transform.LookAt(DataStorage.MouseInfo.ReturnMousePos(this.transform));
+        Destroy(this.gameObject, 5f);
     }
 
     // Update is called once per frame
@@ -27,9 +28,15 @@ public class FireBall : Ability
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("Player"))
+        if (!other.gameObject.GetComponent<Player>() && !other.gameObject.GetComponent<Ability>())
         {
-            Debug.Log("Collided with: " + other.gameObject.name);
+            IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
+
+            if (damagable != null)
+            {
+                damagable.TakeDamage(Damage);
+            }
+
             Destroy(this.gameObject);
         }
     }

@@ -19,5 +19,6 @@ public class Heal : Ability
     public override void Use()
     {
         Debug.Log($"Used {this.AbilityName}");
+        DataStorage.Player.Heal(Damage);
     }
 }

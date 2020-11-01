@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2949924154900810362}
   m_Layer: 0
   m_Name: FireBall
-  m_TagString: Untagged
+  m_TagString: Ability
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,7 +80,7 @@ MonoBehaviour:
   abilityName: Fire Ball
   cooldown: 0.3
   damage: 10
-  speed: 10
+  speed: 15
 --- !u!1001 &6873864162918223293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142,6 +142,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616762035159894949, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616762035159894949, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616762035159894949, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616762035159894949, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616762035159894949, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616762035159894949, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+        type: 3}
+      propertyPath: InitialModule.size3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616762035159894949, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+        type: 3}
+      propertyPath: prewarm
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8616762035159894951, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
         type: 3}

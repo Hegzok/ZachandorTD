@@ -15,17 +15,10 @@ public class PlayerStats : ScriptableObject
     public float MovementSpeedBackwards => movementSpeedBackwards;
 
     [SerializeField]
-    private int health;
-    public int Health => health;
+    private int maxHealth;
+    public int MaxHealth => maxHealth;
 
-    public void ChangeMovementSpeed(float value)
-    {
-        movementSpeed = value;
-    }
-
-    public void ChangeHealthValue(int value)
-    {
-        health = value;
-    }
-
+    [SerializeField]
+    private int currentHealth;
+    public int CurrentHealth => currentHealth;
 }

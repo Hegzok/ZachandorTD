@@ -79,7 +79,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 63caf7ddf3963524c847bb4d2338ed0b, type: 3}
   abilityName: Heal
   cooldown: 5
-  damage: 50
+  damage: 25
 --- !u!1001 &6873864162918223293
 PrefabInstance:
   m_ObjectHideFlags: 0
