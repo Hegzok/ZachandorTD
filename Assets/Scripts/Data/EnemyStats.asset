@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: EnemyStats
   m_EditorClassIdentifier: 
   movementSpeed: 10
-  health: 100
+  maxHealth: 100
+  currentHealth: 0
   damage: 10

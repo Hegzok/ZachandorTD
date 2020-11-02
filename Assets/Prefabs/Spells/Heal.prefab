@@ -27,10 +27,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2949924154900810341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 1.57}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2949924154691831321}
+  - {fileID: 6356586057925264032}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -80,78 +80,84 @@ MonoBehaviour:
   abilityName: Heal
   cooldown: 5
   damage: 25
---- !u!1001 &6873864162918223293
+  abilityType: 0
+--- !u!1001 &6879172518548842341
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 2949924154900810363}
     m_Modifications:
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.01
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.5
+      value: -0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5
+      value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90.00001
+      value: -90
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894951, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 871345553464839700, guid: 38f0d483f25a69e4697387217b0cbf3e,
         type: 3}
       propertyPath: m_Name
-      value: FireBallParticle
+      value: HealParticleEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2357603046319790060, guid: 38f0d483f25a69e4697387217b0cbf3e,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bb0c8ebacdbab0d4babf894d60c5b1db, type: 3}
---- !u!4 &2949924154691831321 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 38f0d483f25a69e4697387217b0cbf3e, type: 3}
+--- !u!4 &6356586057925264032 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+  m_CorrespondingSourceObject: {fileID: 522588676902725061, guid: 38f0d483f25a69e4697387217b0cbf3e,
     type: 3}
-  m_PrefabInstance: {fileID: 6873864162918223293}
+  m_PrefabInstance: {fileID: 6879172518548842341}
   m_PrefabAsset: {fileID: 0}

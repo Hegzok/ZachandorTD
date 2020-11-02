@@ -19,13 +19,17 @@ public class Ability : MonoBehaviour
     [SerializeField] private int damage;
     public int Damage => damage;
 
+    [SerializeField] protected AbilityType abilityType;
+    public AbilityType AT => abilityType;
+
     public virtual void Use()
     {
         Debug.Log("Used default ability");
     }
+
 }
 
-enum AbilityType
+public enum AbilityType
 {
     Fire,
     Ice,

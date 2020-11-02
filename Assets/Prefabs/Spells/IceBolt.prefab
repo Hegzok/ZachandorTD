@@ -80,78 +80,80 @@ MonoBehaviour:
   abilityName: Ice Bolt
   cooldown: 2
   damage: 30
---- !u!1001 &6873864162918223293
+  abilityType: 1
+  speed: 10
+--- !u!1001 &461875833562907224
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 2949924154900810363}
     m_Modifications:
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: -0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90.00001
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
-    - target: {fileID: 8616762035159894951, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+    - target: {fileID: 3357668801437664322, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
         type: 3}
       propertyPath: m_Name
-      value: FireBallParticle
+      value: IceBoltParticleEffect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bb0c8ebacdbab0d4babf894d60c5b1db, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 9b568543c83b5dc41addc06ab0b8dc5d, type: 3}
 --- !u!4 &2949924154691831321 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8616762035159894948, guid: bb0c8ebacdbab0d4babf894d60c5b1db,
+  m_CorrespondingSourceObject: {fileID: 3357668801437664321, guid: 9b568543c83b5dc41addc06ab0b8dc5d,
     type: 3}
-  m_PrefabInstance: {fileID: 6873864162918223293}
+  m_PrefabInstance: {fileID: 461875833562907224}
   m_PrefabAsset: {fileID: 0}
