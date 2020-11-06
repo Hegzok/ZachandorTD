@@ -81,7 +81,7 @@ MonoBehaviour:
   cooldown: 2
   damage: 30
   abilityType: 1
-  speed: 10
+  speed: 20
 --- !u!1001 &461875833562907224
 PrefabInstance:
   m_ObjectHideFlags: 0

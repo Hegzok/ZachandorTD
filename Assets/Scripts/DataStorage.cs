@@ -16,12 +16,16 @@ public class DataStorage : MonoBehaviour
     [SerializeField] private Player player;
     public static Player Player;
 
+    [SerializeField] private Transform allPatrolPointsParent;
+    public static Transform AllPatrolPointsParent;
+
     private void Awake()
     {
         MouseInfo = mouseInfo;
         PlayerHand = playerHand;
         EmptyAbility = emptyAbility;
         Player = player;
+        AllPatrolPointsParent = allPatrolPointsParent;
     }
 
 }

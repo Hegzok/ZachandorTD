@@ -14,7 +14,7 @@ public class Player : MonoBehaviour, IDamagable
     // Start is called before the first frame update
     void Start()
     {
-        InitStats();
+        InitPlayer();
         EventsManager.OnAbilityChosen += GetActiveAbility;
     }
 
@@ -42,7 +42,7 @@ public class Player : MonoBehaviour, IDamagable
         activeAbility = ability;
     }
 
-    private void InitStats()
+    private void InitPlayer()
     {
         stats.CurrentHealth = playerStats.MaxHealth;
         stats.MovementSpeed = playerStats.MovementSpeed;

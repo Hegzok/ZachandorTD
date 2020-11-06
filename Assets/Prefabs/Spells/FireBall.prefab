@@ -80,7 +80,8 @@ MonoBehaviour:
   abilityName: Fire Ball
   cooldown: 0.3
   damage: 10
-  speed: 15
+  abilityType: 0
+  speed: 20
 --- !u!1001 &6873864162918223293
 PrefabInstance:
   m_ObjectHideFlags: 0
