@@ -5,9 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-
     [SerializeField] private Texture2D crosshair; // Delete
-    [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private Stats stats;
     private CharacterController characterController;
 
     private Vector3 velocity;
@@ -21,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Cursor.SetCursor(crosshair, new Vector2(16, 16), CursorMode.Auto);
+
+        stats = DataStorage.Player.Stats;
 
         characterController = GetComponent<CharacterController>();
     }
@@ -44,15 +45,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (localVel.z < (-0.3f))
         {
-            characterController.Move(move.normalized * playerStats.MovementSpeedBackwards * Time.deltaTime);
+            characterController.Move(move.normalized * stats.CurrentMovementSpeedBackwards * Time.deltaTime);
         }
         else
         {
-            characterController.Move(move.normalized * playerStats.MovementSpeed * Time.deltaTime);
+            characterController.Move(move.normalized * stats.CurrentMovementSpeed * Time.deltaTime);
         }
 
         animator.SetFloat("VelX", localVel.x);
-        animator.SetFloat("VelY", localVel.z); 
+        animator.SetFloat("VelY", localVel.z);
 
         characterController.Move(velocity * Time.deltaTime);
     }

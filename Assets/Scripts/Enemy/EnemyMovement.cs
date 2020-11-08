@@ -30,9 +30,8 @@ public class EnemyMovement
     {
         if (patrolPoints.Length >= 1)
         {
-            Debug.Log($"{patrolIndex} patrol index, patrol point position: {patrolPoints[patrolIndex].position}");
             MoveTo(patrolPoints[patrolIndex].position);
-            CheckIfArrived(currentPos);
+            CheckIfArrivedAtPatrolPoint(currentPos);
         }
     }
 
@@ -50,7 +49,7 @@ public class EnemyMovement
         }
     }
 
-    private void CheckIfArrived(Vector3 currentPos)
+    private void CheckIfArrivedAtPatrolPoint(Vector3 currentPos)
     {
         float dist = Vector3.Distance(currentPos, patrolPoints[patrolIndex].position);
 

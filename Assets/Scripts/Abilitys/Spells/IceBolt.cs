@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class IceBolt : Ability
 {
-    [SerializeField] private float speed;
+    [SerializeField] 
+    private float speed;
     public float Speed => speed;
+
+    [SerializeField]
+    private float slowDownPercentage;
+
+    [SerializeField]
+    private float slowDownTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +42,7 @@ public class IceBolt : Ability
             if (damagable != null)
             {
                 damagable.TakeDamage(Damage);
+                damagable.SlowDownMovementSpeed(slowDownPercentage, slowDownTimer);
             }
 
             Destroy(this.gameObject);

@@ -13,10 +13,14 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     public Stats Stats => stats;
 
     [SerializeField] private float timeToWaitIdleOnPatrol = 3f;
+
     private bool aware;
+    public bool Aware => aware;
 
     [SerializeField] private Transform[] patrolPoints;
     private Transform allPatrolPointsParent;
+
+    private Coroutine returnToNormalSpeedCoroutine;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +34,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     void Update()
     {
         UpdateState();
+        navMeshAgent.speed = stats.CurrentMovementSpeed;
     }
 
     private void InitEnemy()
@@ -38,11 +43,13 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyMovement = new EnemyMovement(navMeshAgent, patrolPoints, timeToWaitIdleOnPatrol);
 
-        patrolPoints[0].position = this.transform.position;
         stats.CurrentHealth = enemyStats.MaxHealth;
         stats.Damage = enemyStats.Damage;
-        stats.MovementSpeed = enemyStats.MovementSpeed;
+        stats.BaseMovementSpeed = enemyStats.CurrentMovementSpeed;
+        stats.CurrentMovementSpeed = enemyStats.CurrentMovementSpeed;
         stats.MaxHealth = enemyStats.MaxHealth;
+
+        patrolPoints[0].position = this.transform.position;
     }
 
     public void TakeDamage(int value)
@@ -60,6 +67,29 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         }
     }
 
+    public void SlowDownMovementSpeed(float mitigationPercent, float time)
+    {
+        ReturnToNormalMovementSpeed();
+
+        float multiplier = 1f - mitigationPercent;
+        stats.CurrentMovementSpeed = stats.CurrentMovementSpeed * multiplier;
+
+        returnToNormalSpeedCoroutine = StartCoroutine(ReturnToNormalMovementSpeed(time));
+    }
+
+    private IEnumerator ReturnToNormalMovementSpeed(float time)
+    {
+        yield return new WaitForSeconds(time);
+        stats.CurrentMovementSpeed = stats.BaseMovementSpeed;
+    }
+
+    private void ReturnToNormalMovementSpeed()
+    {
+        if (returnToNormalSpeedCoroutine != null)
+            StopCoroutine(returnToNormalSpeedCoroutine);
+
+        stats.CurrentMovementSpeed = stats.BaseMovementSpeed;
+    }
 
     public void MakeEnemyAwareOfPlayer(bool inRange)
     {
@@ -93,7 +123,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         {
             /* Sets a different parent than enemy so patrol points doesnt move with enemy and we can organize 
             hierarchy better cuz points sits in enemy object while in editor. */
-            patrolPoint.SetParent(allPatrolPointsParent); 
+            patrolPoint.SetParent(allPatrolPointsParent);
         }
     }
 

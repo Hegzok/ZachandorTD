@@ -5,14 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Player/PlayerStats", order = 0)]
 public class PlayerStats : ScriptableObject
 {
-    [SerializeField] [Range(0f, 20f)]
-    private float movementSpeed;
-    public float MovementSpeed => movementSpeed;
+    private float baseMovementSpeed;
+    public float BaseMovementSpeed => baseMovementSpeed;
 
-    [SerializeField]
-    [Range(0f, 20f)]
-    private float movementSpeedBackwards;
-    public float MovementSpeedBackwards => movementSpeedBackwards;
+    [SerializeField] [Range(0f, 20f)]
+    private float currentMovementSpeed;
+    public float CurrentMovementSpeed => currentMovementSpeed;
+
+    [SerializeField] [Range(0f, 3f)]
+    private float movementSpeedBackwardsMultiplier;
+    public float MovementSpeedBackwards => CurrentMovementSpeed / movementSpeedBackwardsMultiplier;
 
     [SerializeField]
     private int maxHealth;
@@ -21,4 +23,8 @@ public class PlayerStats : ScriptableObject
     [SerializeField]
     private int currentHealth;
     public int CurrentHealth => currentHealth;
+
+    [SerializeField] [Range(0f, 20f)]
+    private float radius;
+    public float Radius => radius;
 }

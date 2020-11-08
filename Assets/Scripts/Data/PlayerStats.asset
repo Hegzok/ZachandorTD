@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af435b7cbb8070c47ae34d2f267e9fea, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  movementSpeed: 7
-  movementSpeedBackwards: 4
+  currentMovementSpeed: 7
+  movementSpeedBackwardsMultiplier: 1.8
   maxHealth: 100
   currentHealth: 0
+  radius: 5

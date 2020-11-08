@@ -82,6 +82,8 @@ MonoBehaviour:
   damage: 30
   abilityType: 1
   speed: 20
+  slowDownPercentage: 0.4
+  slowDownTimer: 2
 --- !u!1001 &461875833562907224
 PrefabInstance:
   m_ObjectHideFlags: 0

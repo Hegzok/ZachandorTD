@@ -5,10 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyStats", menuName = "Enemy/EnemyStats", order = 0)]
 public class EnemyStats : ScriptableObject
 {
+    private float baseMovementSpeed;
+    public float BaseMovementSpeed => baseMovementSpeed;
+
     [SerializeField]
     [Range(0f, 20f)]
-    private float movementSpeed;
-    public float MovementSpeed => movementSpeed;
+    private float currentMovementSpeed;
+    public float CurrentMovementSpeed => currentMovementSpeed;
 
     [SerializeField]
     private int maxHealth;
