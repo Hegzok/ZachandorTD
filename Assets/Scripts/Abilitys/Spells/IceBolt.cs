@@ -43,6 +43,12 @@ public class IceBolt : Ability
             {
                 damagable.TakeDamage(Damage);
                 damagable.SlowDownMovementSpeed(slowDownPercentage, slowDownTimer);
+
+                // temporary will change later
+                if (other.gameObject.GetComponent<Enemy>())
+                {
+                    other.gameObject.GetComponent<Enemy>().ChangeBodyColorCall(Color.blue, slowDownTimer);
+                }
             }
 
             Destroy(this.gameObject);

@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class DataStorage : MonoBehaviour
 {
-    [SerializeField] private MouseInfo mouseInfo;
+    [SerializeField] 
+    private MouseInfo mouseInfo;
     public static MouseInfo MouseInfo;
 
-    [SerializeField] private Transform playerHand;
+    [SerializeField] 
+    private Transform playerHand;
     public static Transform PlayerHand;
 
-    [SerializeField] private Ability emptyAbility;
+    [SerializeField] 
+    private Ability emptyAbility;
     public static Ability EmptyAbility;
 
-    [SerializeField] private Player player;
+    [SerializeField] 
+    private Player player;
     public static Player Player;
 
-    [SerializeField] private Transform allPatrolPointsParent;
+    [SerializeField] 
+    private Transform allPatrolPointsParent;
     public static Transform AllPatrolPointsParent;
+
+    [SerializeField]
+    private UIManager uiManager;
+    public static UIManager UIManager;
 
     private void Awake()
     {
@@ -26,6 +35,7 @@ public class DataStorage : MonoBehaviour
         EmptyAbility = emptyAbility;
         Player = player;
         AllPatrolPointsParent = allPatrolPointsParent;
+        UIManager = uiManager;
     }
 
 }

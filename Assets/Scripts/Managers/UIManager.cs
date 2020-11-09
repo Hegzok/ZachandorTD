@@ -8,12 +8,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InventorySpells inventorySpells;
     [SerializeField] private Slot[] spellsBar;
 
+    [SerializeField]
+    private Slider healthBarSlider;
+    [SerializeField]
+    private Text healthBarText;
+
     private Slot lastActiveSlot;
 
     // Start is called before the first frame update
     void Start()
     {
         HandleEvents(true);
+        SetMaxHealth(DataStorage.Player.Stats.MaxHealth);
         SetAllIcons();
     }
 
@@ -25,7 +31,20 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        SetHealth(DataStorage.Player.Stats.CurrentHealth);
+    }
+
+    public void SetMaxHealth(int value)
+    {
+        healthBarSlider.maxValue = value;
+        healthBarSlider.value = value;
+        healthBarText.text = value.ToString();
+    }
+
+    public void SetHealth(int value)
+    {
+        healthBarSlider.value = value;
+        healthBarText.text = value.ToString();
     }
 
     private void HandleEvents(bool switcher)

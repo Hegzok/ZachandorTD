@@ -30,6 +30,11 @@ public class Enemy : StateMachine<Enemy>, IDamagable
 
     protected Coroutine returnToNormalSpeedCoroutine;
 
+    // temporary variables change later
+    public GameObject body;
+    protected Coroutine changeBodyColourCoroutine;
+    protected Color baseColor = Color.red;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +73,36 @@ public class Enemy : StateMachine<Enemy>, IDamagable
 
         Die();
     }
+
+    #region -- Temporary functions change later --
+
+    public void ChangeBodyColorCall(Color color, float slowDuration)
+    {
+        if (changeBodyColourCoroutine != null)
+        {
+            StopCoroutine(changeBodyColourCoroutine);
+        }
+
+       changeBodyColourCoroutine = StartCoroutine(ChangeBodyColor(color, slowDuration));
+    }
+
+    private IEnumerator ChangeBodyColor(Color color, float slowDuration)
+    {
+        MeshRenderer enemyBody = body.GetComponent<MeshRenderer>();
+
+        Material[] mats = enemyBody.materials;
+
+        Color tempColor = baseColor;
+
+        mats[0].color = color;
+
+        yield return new WaitForSeconds(slowDuration);
+
+        mats[0].color = tempColor;
+        Debug.Log("Changed color");
+    }
+
+    #endregion
 
     protected void Die()
     {
