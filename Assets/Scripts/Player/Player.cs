@@ -11,6 +11,10 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField] private Stats stats;
     public Stats Stats => stats;
 
+    // Temporary variables change later
+    public GameObject playerSkin;
+    public Color color;
+
     private void Awake()
     {
         InitPlayer();
@@ -55,14 +59,31 @@ public class Player : MonoBehaviour, IDamagable
         stats.CurrentMovementSpeed = playerStats.CurrentMovementSpeed;
         stats.CurrentMovementSpeedBackwards = playerStats.MovementSpeedBackwards;
         stats.MaxHealth = playerStats.MaxHealth;
-        stats.Radius = playerStats.Radius;
+        stats.VisibilityRadius = playerStats.VisibilityRadius;
     }
 
     public void TakeDamage(int value)
     {
         stats.CurrentHealth -= value;
+        StartCoroutine(ChangeSkinColor(color));
 
         Die();
+    }
+
+    // Temporary function change later
+    private IEnumerator ChangeSkinColor(Color color)
+    {
+        SkinnedMeshRenderer skin = playerSkin.GetComponent<SkinnedMeshRenderer>();
+
+        Material[] mats = skin.materials;
+
+        Color tempColor = mats[0].color;
+
+        mats[0].color = color;
+
+        yield return new WaitForSeconds(0.2f);
+
+        mats[0].color = tempColor;  
     }
 
     public void Heal(int value)
@@ -101,7 +122,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void LookForEnemy()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, stats.Radius);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, stats.VisibilityRadius);
 
         foreach (var hitCollider in hitColliders)
         {
@@ -111,7 +132,6 @@ public class Player : MonoBehaviour, IDamagable
                 {
                     Enemy enemy = hitCollider.GetComponent<Enemy>();
                     enemy.ChangeState(new ChaseState());
-                    Debug.Log("Im called");
                 }
             }
         }
@@ -121,6 +141,6 @@ public class Player : MonoBehaviour, IDamagable
     {
         Gizmos.color = Color.red;
         //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
-        Gizmos.DrawWireSphere(transform.position, stats.Radius);
+        Gizmos.DrawWireSphere(transform.position, stats.VisibilityRadius);
     }
 }

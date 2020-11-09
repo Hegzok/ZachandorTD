@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMovementSpeed: 7
   movementSpeedBackwardsMultiplier: 1.8
-  maxHealth: 100
+  maxHealth: 400
   currentHealth: 0
-  radius: 5
+  visibilityRadius: 5.5

@@ -24,4 +24,12 @@ public class EnemyStats : ScriptableObject
     [SerializeField]
     private int damage;
     public int Damage => damage;
+
+    [SerializeField]
+    private float attackRange;
+    public float AttackRange => attackRange;
+
+    [SerializeField]
+    private float attackCooldown;
+    public float AttackCooldown => attackCooldown;
 }

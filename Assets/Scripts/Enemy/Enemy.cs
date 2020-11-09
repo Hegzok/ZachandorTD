@@ -5,22 +5,30 @@ using UnityEngine.AI;
 
 public class Enemy : StateMachine<Enemy>, IDamagable
 {
-    [SerializeField] private EnemyStats enemyStats;
-    private EnemyMovement enemyMovement;
-    private NavMeshAgent navMeshAgent;
+    [SerializeField] 
+    protected EnemyStats enemyStats;
+    protected EnemyMovement enemyMovement;
+    protected NavMeshAgent navMeshAgent;
 
-    private Stats stats;
+    protected Stats stats;
     public Stats Stats => stats;
 
-    [SerializeField] private float timeToWaitIdleOnPatrol = 3f;
+    [SerializeField] 
+    protected float timeToWaitIdleOnPatrol = 3f;
 
-    private bool aware;
+    protected bool aware;
     public bool Aware => aware;
 
-    [SerializeField] private Transform[] patrolPoints;
-    private Transform allPatrolPointsParent;
+    protected bool canMove;
+    public bool CanMove => canMove;
 
-    private Coroutine returnToNormalSpeedCoroutine;
+    protected bool canAttack = true;
+    public bool CanAttack => canAttack;
+
+    [SerializeField] protected Transform[] patrolPoints;
+    protected Transform allPatrolPointsParent;
+
+    protected Coroutine returnToNormalSpeedCoroutine;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +45,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         navMeshAgent.speed = stats.CurrentMovementSpeed;
     }
 
-    private void InitEnemy()
+    protected void InitEnemy()
     {
         allPatrolPointsParent = DataStorage.AllPatrolPointsParent;
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -48,6 +56,8 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         stats.BaseMovementSpeed = enemyStats.CurrentMovementSpeed;
         stats.CurrentMovementSpeed = enemyStats.CurrentMovementSpeed;
         stats.MaxHealth = enemyStats.MaxHealth;
+        stats.AttackRange = enemyStats.AttackRange;
+        stats.AttackCooldown = enemyStats.AttackCooldown;
 
         patrolPoints[0].position = this.transform.position;
     }
@@ -59,12 +69,52 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         Die();
     }
 
-    private void Die()
+    protected void Die()
     {
         if (stats.CurrentHealth <= 0)
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public void CheckIfPlayerInRangeToAttack(Player player)
+    {
+        if (Aware)
+        {
+            float dist = Vector3.Distance(transform.position, player.transform.position);
+
+            if (dist <= stats.AttackRange)
+            {
+                ChangeState(new AttackState());
+            }
+            else
+            {
+                ChangeState(new ChaseState());
+            }
+        }
+    }
+
+    public void PerformAttack(Player player)
+    {
+        if (canAttack)
+        {
+            player.TakeDamage(stats.Damage);
+            canAttack = false;
+            StartCoroutine(AllowToAttackAfterCooldown());
+        }
+
+        StopMoving(stats.AttackCooldown);
+    }
+
+    private IEnumerator AllowToAttackAfterCooldown()
+    {
+        yield return new WaitForSeconds(stats.AttackCooldown);
+        canAttack = true;
+    }
+
+    private void StopMoving(float time)
+    {
+        SlowDownMovementSpeed(1f, time);
     }
 
     public void SlowDownMovementSpeed(float mitigationPercent, float time)
@@ -77,13 +127,13 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         returnToNormalSpeedCoroutine = StartCoroutine(ReturnToNormalMovementSpeed(time));
     }
 
-    private IEnumerator ReturnToNormalMovementSpeed(float time)
+    protected IEnumerator ReturnToNormalMovementSpeed(float time)
     {
         yield return new WaitForSeconds(time);
         stats.CurrentMovementSpeed = stats.BaseMovementSpeed;
     }
 
-    private void ReturnToNormalMovementSpeed()
+    protected void ReturnToNormalMovementSpeed()
     {
         if (returnToNormalSpeedCoroutine != null)
             StopCoroutine(returnToNormalSpeedCoroutine);
@@ -91,12 +141,17 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         stats.CurrentMovementSpeed = stats.BaseMovementSpeed;
     }
 
+    public void ChangeStoppingDistance(float value)
+    {
+        navMeshAgent.stoppingDistance = value;
+    }
+
     public void MakeEnemyAwareOfPlayer(bool inRange)
     {
         aware = inRange;
     }
 
-    public void FollowPlayerWhenInRange(Vector3 position)
+    public void FollowPlayer(Vector3 position)
     {
         if (aware)
         {
@@ -117,7 +172,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         enemyMovement.Patrol(this.gameObject.transform.position);
     }
 
-    private void ChangePatrolPointsParent()
+    protected void ChangePatrolPointsParent()
     {
         foreach (var patrolPoint in patrolPoints)
         {

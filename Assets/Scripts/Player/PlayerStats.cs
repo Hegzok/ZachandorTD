@@ -25,6 +25,6 @@ public class PlayerStats : ScriptableObject
     public int CurrentHealth => currentHealth;
 
     [SerializeField] [Range(0f, 20f)]
-    private float radius;
-    public float Radius => radius;
+    private float visibilityRadius;
+    public float VisibilityRadius => visibilityRadius;
 }

@@ -51,9 +51,9 @@ public class EnemyMovement
 
     private void CheckIfArrivedAtPatrolPoint(Vector3 currentPos)
     {
-        float dist = Vector3.Distance(currentPos, patrolPoints[patrolIndex].position);
+        float dist = Vector3.Distance(currentPos, (patrolPoints[patrolIndex].position));
 
-        if (dist < 1f)
+        if (dist <= 1f)
         {
             if (!lastTimeWaitedAlreadySet)
             {

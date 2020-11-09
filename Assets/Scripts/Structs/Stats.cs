@@ -7,5 +7,7 @@ public struct Stats
     public int MaxHealth;
     public int CurrentHealth;
     public int Damage;
-    public float Radius;
+    public float VisibilityRadius;
+    public float AttackRange;
+    public float AttackCooldown;
 }
