@@ -6,7 +6,7 @@ Enemy when slowed changes color to blue (probably will be changed to some frost 
 
 Current state of the game:
 
-[![](https://img.youtube.com/vi/237OvPW1Pk0/0.jpg)]https://www.youtube.com/watch?v=237OvPW1Pk0)
+[![](https://img.youtube.com/vi/237OvPW1Pk0/0.jpg)](https://www.youtube.com/watch?v=237OvPW1Pk0)
 
 # Update 1
 
