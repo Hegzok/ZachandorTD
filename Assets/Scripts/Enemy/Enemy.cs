@@ -7,6 +7,8 @@ public class Enemy : StateMachine<Enemy>, IDamagable
 {
     [SerializeField] 
     protected EnemyStats enemyStats;
+    public EnemyStats EnemyStats => enemyStats;
+
     protected EnemyMovement enemyMovement;
     protected NavMeshAgent navMeshAgent;
 
@@ -67,7 +69,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         patrolPoints[0].position = this.transform.position;
     }
 
-    public void TakeDamage(int value)
+    public void TakeDamage(float value)
     {
         stats.CurrentHealth -= value;
 
@@ -108,6 +110,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     {
         if (stats.CurrentHealth <= 0)
         {
+            EventsManager.CallOnEnemyDeath(this);
             Destroy(this.gameObject);
         }
     }

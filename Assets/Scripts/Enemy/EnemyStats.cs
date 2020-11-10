@@ -9,6 +9,10 @@ public class EnemyStats : ScriptableObject
     private int currentLevel = 1;
     public int CurrentLevel => currentLevel;
 
+    [SerializeField]
+    private int currentExperience;
+    public int CurrentExperience => currentExperience;
+
     private float baseMovementSpeed;
     public float BaseMovementSpeed => baseMovementSpeed;
 
@@ -18,20 +22,20 @@ public class EnemyStats : ScriptableObject
     public float CurrentMovementSpeed => currentMovementSpeed;
 
     [SerializeField]
-    private int maxHealth;
-    public int MaxHealth => maxHealth;
+    private float maxHealth;
+    public float MaxHealth => maxHealth;
 
     [SerializeField]
-    private int currentHealth;
-    public int CurrentHealth => currentHealth;
+    private float currentHealth;
+    public float CurrentHealth => currentHealth;
 
     [SerializeField]
-    private int attackDamage;
-    public int AttackDamage => attackDamage;
+    private float attackDamage;
+    public float AttackDamage => attackDamage;
 
     [SerializeField]
-    private int spellDamage;
-    public int SpellDamage => spellDamage;
+    private float spellDamage;
+    public float SpellDamage => spellDamage;
 
     [SerializeField]
     private float attackRange;
@@ -42,10 +46,10 @@ public class EnemyStats : ScriptableObject
     public float AttackSpeed => attackSpeed;
 
     [SerializeField]
-    private int armor;
-    public int Armor => armor;
+    private float armor;
+    public float Armor => armor;
 
     [SerializeField]
-    private int magicResist;
-    public int MagicResist => magicResist;
+    private float magicResist;
+    public float MagicResist => magicResist;
 }

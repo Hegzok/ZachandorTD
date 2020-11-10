@@ -11,6 +11,8 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField] private Stats stats;
     public Stats Stats => stats;
 
+    private Level level;
+
     // Temporary variables change later
     public GameObject playerSkin;
     public Color color;
@@ -24,11 +26,13 @@ public class Player : MonoBehaviour, IDamagable
     void Start()
     {
         EventsManager.OnAbilityChosen += GetActiveAbility;
+        EventsManager.OnEnemyDeath += level.EnemyToExperience;
     }
 
     private void OnDisable()
     {
         EventsManager.OnAbilityChosen -= GetActiveAbility;
+        EventsManager.OnEnemyDeath -= level.EnemyToExperience;
     }
 
     // Update is called once per frame
@@ -41,11 +45,10 @@ public class Player : MonoBehaviour, IDamagable
 
         LookForEnemy();
 
+        // temporary change later
         if (Input.GetMouseButtonDown(1))
         {
-            Level level = new Level(613.36f, 106f, 2f);
-            level.CalculateStat();
-            
+            level.CalculateStat(613.36f, 106f, 2f); 
         }
     }
 
@@ -61,6 +64,8 @@ public class Player : MonoBehaviour, IDamagable
 
     private void InitPlayer()
     {
+        level = new Level();
+
         stats.CurrentHealth = playerStats.MaxHealth;
         stats.BaseMovementSpeed = playerStats.CurrentMovementSpeed;
         stats.CurrentMovementSpeed = playerStats.CurrentMovementSpeed;
@@ -70,7 +75,7 @@ public class Player : MonoBehaviour, IDamagable
         stats.CriticalStrikeChance = playerStats.CriticalStrikeChance;
     }
 
-    public void TakeDamage(int value)
+    public void TakeDamage(float value)
     {
         stats.CurrentHealth -= value;
         StartCoroutine(ChangeSkinColor(color));

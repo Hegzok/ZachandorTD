@@ -4,38 +4,46 @@ using UnityEngine;
 
 public class Level
 {
-    public int RequiredExperience;
+    private int currentLevel = 1;
+    public int CurrentLevel => currentLevel;
 
-    // temporary variables change later
-    float b;
-    float g;
-    float n;
+    private int currentExperience = 0;
+    public int CurrentExperience => currentExperience;
 
-    public Level (float b, float g, float n)
+    public int requiredExperience;
+    private int RequiredExperience => requiredExperience;
+
+    public void EnemyToExperience(Enemy enemy)
     {
-        this.b = b;
-        this.g = g;
-        this.n = n;
+        GrantExperience(enemy.EnemyStats.CurrentExperience);
     }
 
-    public void GrantExperience(int amount, int currentLevel, int currentExperience)
+    public void GrantExperience(int amount)
     {
         currentExperience += amount;
 
-        while (currentExperience >= RequiredExperience)
+        while (currentExperience >= requiredExperience)
         {
-            currentExperience -= RequiredExperience;
+            currentExperience -= requiredExperience;
             currentLevel++;
+            requiredExperience = CalculateRequiredExperience(currentLevel);
         }
+
+        Debug.Log(CurrentLevel);
     }
 
     // temporary change later
-    public void CalculateStat()
+    public void CalculateStat(float b, float g, float n)
     {
         float current = b + g * (n - 1f) * (0.7025f + 0.0175f * (n - 1));
 
         int rounded = Mathf.RoundToInt(current);
 
         Debug.Log($"Current value is: {rounded}");
+    }
+
+    private int CalculateRequiredExperience(int level)
+    {
+        return level * 25;
     }
 }

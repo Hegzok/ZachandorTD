@@ -10,6 +10,12 @@ public class EventsManager
     public static UnityAction<int> OnAbilityDiscard;
     public static UnityAction<int> OnHotkeyChosen;
     public static UnityAction<Ability> OnAbilityChosen;
+    public static UnityAction<Enemy> OnEnemyDeath;
+
+    public static void CallOnEnemyDeath(Enemy enemy)
+    {
+        OnEnemyDeath?.Invoke(enemy);
+    }
 
     public static void CallOnAbilityPickUp(Ability ability)
     {

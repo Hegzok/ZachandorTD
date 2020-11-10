@@ -34,14 +34,14 @@ public class UIManager : MonoBehaviour
         SetHealth(DataStorage.Player.Stats.CurrentHealth);
     }
 
-    public void SetMaxHealth(int value)
+    public void SetMaxHealth(float value)
     {
         healthBarSlider.maxValue = value;
         healthBarSlider.value = value;
         healthBarText.text = value.ToString();
     }
 
-    public void SetHealth(int value)
+    public void SetHealth(float value)
     {
         healthBarSlider.value = value;
         healthBarText.text = value.ToString();

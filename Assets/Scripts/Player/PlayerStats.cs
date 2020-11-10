@@ -21,12 +21,12 @@ public class PlayerStats : ScriptableObject
     public float MovementSpeedBackwards => CurrentMovementSpeed / movementSpeedBackwardsMultiplier;
 
     [SerializeField]
-    private int maxHealth;
-    public int MaxHealth => maxHealth;
+    private float maxHealth;
+    public float MaxHealth => maxHealth;
 
     [SerializeField]
-    private int currentHealth;
-    public int CurrentHealth => currentHealth;
+    private float currentHealth;
+    public float CurrentHealth => currentHealth;
 
     [SerializeField] [Range(0f, 20f)]
     private float visibilityRadius;
@@ -45,18 +45,18 @@ public class PlayerStats : ScriptableObject
     public float AttackSpeed => attackSpeed;
 
     [SerializeField]
-    private int attackDamage;
-    public int AttackDamage => attackDamage;
+    private float attackDamage;
+    public float AttackDamage => attackDamage;
 
     [SerializeField]
-    private int spellDamage;
-    public int SpellDamage => spellDamage;
+    private float spellDamage;
+    public float SpellDamage => spellDamage;
 
     [SerializeField]
-    private int armor;
-    public int Armor => armor;
+    private float armor;
+    public float Armor => armor;
 
     [SerializeField]
-    private int magicResist;
-    public int MagicResist => magicResist;
+    private float magicResist;
+    public float MagicResist => magicResist;
 }

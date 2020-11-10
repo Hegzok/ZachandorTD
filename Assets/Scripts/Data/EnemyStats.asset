@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ae81d27e6603840906e59169203f90, type: 3}
   m_Name: EnemyStats
   m_EditorClassIdentifier: 
+  currentLevel: 1
+  currentExperience: 10
   currentMovementSpeed: 5
   maxHealth: 100
   currentHealth: 0
-  damage: 30
+  attackDamage: 10
+  spellDamage: 0
   attackRange: 2
-  attackCooldown: 0.6
+  attackSpeed: 0.6
+  armor: 0
+  magicResist: 0
