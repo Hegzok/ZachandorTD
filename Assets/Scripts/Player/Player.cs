@@ -40,6 +40,13 @@ public class Player : MonoBehaviour, IDamagable
         }
 
         LookForEnemy();
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Level level = new Level(613.36f, 106f, 2f);
+            level.CalculateStat();
+            
+        }
     }
 
     private void UseAbility()
@@ -60,6 +67,7 @@ public class Player : MonoBehaviour, IDamagable
         stats.CurrentMovementSpeedBackwards = playerStats.MovementSpeedBackwards;
         stats.MaxHealth = playerStats.MaxHealth;
         stats.VisibilityRadius = playerStats.VisibilityRadius;
+        stats.CriticalStrikeChance = playerStats.CriticalStrikeChance;
     }
 
     public void TakeDamage(int value)

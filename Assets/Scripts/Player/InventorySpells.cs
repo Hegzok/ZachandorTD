@@ -29,12 +29,12 @@ public class InventorySpells : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Testing
-        if (Input.GetMouseButtonDown(1))
-        {
-            testAbility = testAbilitys[Random.Range(0, testAbilitys.Length)];
-            EventsManager.CallOnAbilityPickUp(testAbility);
-        }
+        //// Testing
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //    testAbility = testAbilitys[Random.Range(0, testAbilitys.Length)];
+        //    EventsManager.CallOnAbilityPickUp(testAbility);
+        //}
     }
 
     private void HandleEvents(bool switcher)

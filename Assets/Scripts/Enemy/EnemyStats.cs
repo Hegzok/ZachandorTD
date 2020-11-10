@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyStats", menuName = "Enemy/EnemyStats", order = 0)]
 public class EnemyStats : ScriptableObject
 {
+    [SerializeField]
+    private int currentLevel = 1;
+    public int CurrentLevel => currentLevel;
+
     private float baseMovementSpeed;
     public float BaseMovementSpeed => baseMovementSpeed;
 
@@ -22,14 +26,26 @@ public class EnemyStats : ScriptableObject
     public int CurrentHealth => currentHealth;
 
     [SerializeField]
-    private int damage;
-    public int Damage => damage;
+    private int attackDamage;
+    public int AttackDamage => attackDamage;
+
+    [SerializeField]
+    private int spellDamage;
+    public int SpellDamage => spellDamage;
 
     [SerializeField]
     private float attackRange;
     public float AttackRange => attackRange;
 
     [SerializeField]
-    private float attackCooldown;
-    public float AttackCooldown => attackCooldown;
+    private float attackSpeed;
+    public float AttackSpeed => attackSpeed;
+
+    [SerializeField]
+    private int armor;
+    public int Armor => armor;
+
+    [SerializeField]
+    private int magicResist;
+    public int MagicResist => magicResist;
 }

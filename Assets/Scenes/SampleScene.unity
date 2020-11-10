@@ -5880,6 +5880,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 200389541, guid: 3f16efdd26e538c44b2317a48b2a4ac1, type: 3}
+      propertyPath: timeToWaitIdleOnPatrol
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7168320376161824032, guid: 3f16efdd26e538c44b2317a48b2a4ac1,
         type: 3}
       propertyPath: m_LocalPosition.x

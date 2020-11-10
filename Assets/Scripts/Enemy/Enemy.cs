@@ -57,12 +57,12 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         enemyMovement = new EnemyMovement(navMeshAgent, patrolPoints, timeToWaitIdleOnPatrol);
 
         stats.CurrentHealth = enemyStats.MaxHealth;
-        stats.Damage = enemyStats.Damage;
+        stats.AttackDamage = enemyStats.AttackDamage;
         stats.BaseMovementSpeed = enemyStats.CurrentMovementSpeed;
         stats.CurrentMovementSpeed = enemyStats.CurrentMovementSpeed;
         stats.MaxHealth = enemyStats.MaxHealth;
         stats.AttackRange = enemyStats.AttackRange;
-        stats.AttackCooldown = enemyStats.AttackCooldown;
+        stats.AttackSpeed = enemyStats.AttackSpeed;
 
         patrolPoints[0].position = this.transform.position;
     }
@@ -133,17 +133,17 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     {
         if (canAttack)
         {
-            player.TakeDamage(stats.Damage);
+            player.TakeDamage(stats.AttackDamage);
             canAttack = false;
             StartCoroutine(AllowToAttackAfterCooldown());
         }
 
-        StopMoving(stats.AttackCooldown);
+        StopMoving(stats.AttackSpeed);
     }
 
     private IEnumerator AllowToAttackAfterCooldown()
     {
-        yield return new WaitForSeconds(stats.AttackCooldown);
+        yield return new WaitForSeconds(stats.AttackSpeed);
         canAttack = true;
     }
 
