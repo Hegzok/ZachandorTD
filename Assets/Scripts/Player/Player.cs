@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamagable
 {
-    [SerializeField] private Ability activeAbility;
+    private CharacterStats baseStats;
+    public CharacterStats BaseStats => baseStats;
 
-    [SerializeField] private PlayerStats playerStats;
+    [SerializeField]
+    private List<PlayerStatObject> playerBaseStats;
+    public List<PlayerStatObject> PlayerBaseStats => playerBaseStats;
 
-    [SerializeField] private Stats stats;
-    public Stats Stats => stats;
+    private DynamicStats dynamicStats;
+    public DynamicStats DynamicStats => dynamicStats;
 
-    private Level level;
+    private Level playerLevel;
+
+    [SerializeField] 
+    private Ability activeAbility;
 
     // Temporary variables change later
     public GameObject playerSkin;
@@ -26,13 +32,13 @@ public class Player : MonoBehaviour, IDamagable
     void Start()
     {
         EventsManager.OnAbilityChosen += GetActiveAbility;
-        EventsManager.OnEnemyDeath += level.EnemyToExperience;
+        EventsManager.OnEnemyDeath += playerLevel.EnemyToExperience;
     }
 
     private void OnDisable()
     {
         EventsManager.OnAbilityChosen -= GetActiveAbility;
-        EventsManager.OnEnemyDeath -= level.EnemyToExperience;
+        EventsManager.OnEnemyDeath -= playerLevel.EnemyToExperience;
     }
 
     // Update is called once per frame
@@ -48,7 +54,7 @@ public class Player : MonoBehaviour, IDamagable
         // temporary change later
         if (Input.GetMouseButtonDown(1))
         {
-            level.CalculateStat(613.36f, 106f, 2f); 
+            playerLevel.CalculateStat(613.36f, 106f, 2f); 
         }
     }
 
@@ -64,20 +70,17 @@ public class Player : MonoBehaviour, IDamagable
 
     private void InitPlayer()
     {
-        level = new Level();
+        playerLevel = new Level();
+        baseStats = new CharacterStats(playerBaseStats);
 
-        stats.CurrentHealth = playerStats.MaxHealth;
-        stats.BaseMovementSpeed = playerStats.CurrentMovementSpeed;
-        stats.CurrentMovementSpeed = playerStats.CurrentMovementSpeed;
-        stats.CurrentMovementSpeedBackwards = playerStats.MovementSpeedBackwards;
-        stats.MaxHealth = playerStats.MaxHealth;
-        stats.VisibilityRadius = playerStats.VisibilityRadius;
-        stats.CriticalStrikeChance = playerStats.CriticalStrikeChance;
+        dynamicStats.CurrentHealth = BaseStats.GetStatFinalValue(BaseStatType.MaxHealth);
+        dynamicStats.CurrentMovementSpeed = BaseStats.GetStatFinalValue(BaseStatType.BaseMovementSpeed);
+        dynamicStats.CurrentMovementSpeedBackwards = BaseStats.GetStatFinalValue(BaseStatType.BaseMovementSpeed) * 0.7f;
     }
 
     public void TakeDamage(float value)
     {
-        stats.CurrentHealth -= value;
+        dynamicStats.CurrentHealth -= value;
         StartCoroutine(ChangeSkinColor(color));
 
         Die();
@@ -101,20 +104,20 @@ public class Player : MonoBehaviour, IDamagable
 
     public void Heal(int value)
     {
-        if (stats.CurrentHealth <= stats.MaxHealth)
+        if (dynamicStats.CurrentHealth <= BaseStats.GetStatFinalValue(BaseStatType.MaxHealth))
         {
-            stats.CurrentHealth += value;
+            dynamicStats.CurrentHealth += value;
         }
-        if (stats.CurrentHealth > stats.MaxHealth)
+        if (dynamicStats.CurrentHealth > BaseStats.GetStatFinalValue(BaseStatType.MaxHealth))
         {
-            stats.CurrentHealth = stats.MaxHealth;
+            dynamicStats.CurrentHealth = BaseStats.GetStatFinalValue(BaseStatType.MaxHealth);
         }
     }
 
     public void SlowDownMovementSpeed(float mitigationPercent, float time)
     {
         float multiplier = 1f - mitigationPercent;
-        stats.CurrentMovementSpeed = stats.CurrentMovementSpeed * multiplier;
+        dynamicStats.CurrentMovementSpeed = dynamicStats.CurrentMovementSpeed * multiplier;
 
         StartCoroutine(ReturnToNormalMovementSpeed(time));
     }
@@ -122,12 +125,12 @@ public class Player : MonoBehaviour, IDamagable
     private IEnumerator ReturnToNormalMovementSpeed(float time)
     {
         yield return new WaitForSeconds(time);
-        stats.CurrentMovementSpeed = stats.BaseMovementSpeed;
+        dynamicStats.CurrentMovementSpeed = BaseStats.GetStatFinalValue(BaseStatType.BaseMovementSpeed);
     }
 
     private void Die()
     {
-        if (stats.CurrentHealth <= 0)
+        if (dynamicStats.CurrentHealth <= 0)
         {
             Destroy(this.gameObject);
         }
@@ -135,7 +138,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void LookForEnemy()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, stats.VisibilityRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, BaseStats.GetStatFinalValue(BaseStatType.VisibilityRadius));
 
         foreach (var hitCollider in hitColliders)
         {
@@ -154,6 +157,6 @@ public class Player : MonoBehaviour, IDamagable
     {
         Gizmos.color = Color.red;
         //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
-        Gizmos.DrawWireSphere(transform.position, stats.VisibilityRadius);
+        Gizmos.DrawWireSphere(transform.position, BaseStats.GetStatFinalValue(BaseStatType.VisibilityRadius));
     }
 }

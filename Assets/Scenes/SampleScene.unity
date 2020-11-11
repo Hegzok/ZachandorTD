@@ -4620,6 +4620,16 @@ PrefabInstance:
       objectReference: {fileID: 941661808}
     - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
         type: 3}
+      propertyPath: playerStatsObject.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
       propertyPath: playerStats
       value: 
       objectReference: {fileID: 11400000, guid: 4c057e8b0e6a31b4e9db5ed3f97b9d79,
@@ -4649,6 +4659,90 @@ PrefabInstance:
       propertyPath: color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerStatsObject.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2bf3a943deced0f45bbf34c68a71239b,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerStatsObject.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 26901ecd8122fe94687b5e72bac688b3,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2bf3a943deced0f45bbf34c68a71239b,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 709ce340582ea5d49bca030b1cc9f250,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1dec64e8c44865e4ebab0e243924913a,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: c85995657dba8724dbe1a0b12caf7d4a,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 77501e6c407531441ae7e8980338522f,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: a5656b4fc239a064ebeb00d9a1ae0e39,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 26901ecd8122fe94687b5e72bac688b3,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c1e6ec6efd00b740aabe6d73dcfbf41,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b9d891673c6bb6409068ee8d6006db4,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: 492465714f742fb46bf0e77d972044cb,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: playerBaseStats.Array.data[10]
+      value: 
+      objectReference: {fileID: 11400000, guid: dd5a6ab4ba266a3419c6012e26e4c6c6,
+        type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: dynamicPlayerStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c057e8b0e6a31b4e9db5ed3f97b9d79,
+        type: 2}
     - target: {fileID: 3016573158398549141, guid: 3d2ad48d5af58a24291c39df3497037b,
         type: 3}
       propertyPath: m_LocalRotation.x

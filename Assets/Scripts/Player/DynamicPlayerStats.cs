@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerStats", menuName = "Player/PlayerStats", order = 0)]
-public class PlayerStats : ScriptableObject
+[CreateAssetMenu(fileName = "Dynamic Player Stats", menuName = "Player/Dynamic Player Stats", order = 0)]
+public class DynamicPlayerStats : ScriptableObject
 {
     [SerializeField]
     private int currentLevel = 1;

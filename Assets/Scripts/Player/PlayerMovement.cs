@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private Texture2D crosshair; // Delete
-    [SerializeField] private Stats stats;
+    [SerializeField] private DynamicStats dynamicStats;
     private CharacterController characterController;
 
     private Vector3 velocity;
@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Cursor.SetCursor(crosshair, new Vector2(16, 16), CursorMode.Auto);
 
-        stats = DataStorage.Player.Stats;
+        dynamicStats = DataStorage.Player.DynamicStats;
 
         characterController = GetComponent<CharacterController>();
     }
@@ -45,11 +45,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (localVel.z < (-0.3f))
         {
-            characterController.Move(move.normalized * stats.CurrentMovementSpeedBackwards * Time.deltaTime);
+            characterController.Move(move.normalized * dynamicStats.CurrentMovementSpeedBackwards * Time.deltaTime);
         }
         else
         {
-            characterController.Move(move.normalized * stats.CurrentMovementSpeed * Time.deltaTime);
+            characterController.Move(move.normalized * dynamicStats.CurrentMovementSpeed * Time.deltaTime);
         }
 
         animator.SetFloat("VelX", localVel.x);

@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 public class Enemy : StateMachine<Enemy>, IDamagable
 {
+    [SerializeField]
+    private CharacterStats baseStats;
+    public CharacterStats BaseStats => baseStats;
+
     [SerializeField] 
     protected EnemyStats enemyStats;
     public EnemyStats EnemyStats => enemyStats;
@@ -12,8 +16,8 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     protected EnemyMovement enemyMovement;
     protected NavMeshAgent navMeshAgent;
 
-    protected Stats stats;
-    public Stats Stats => stats;
+    protected DynamicStats stats;
+    public DynamicStats Stats => stats;
 
     [SerializeField] 
     protected float timeToWaitIdleOnPatrol = 3f;
@@ -57,14 +61,6 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         allPatrolPointsParent = DataStorage.AllPatrolPointsParent;
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyMovement = new EnemyMovement(navMeshAgent, patrolPoints, timeToWaitIdleOnPatrol);
-
-        stats.CurrentHealth = enemyStats.MaxHealth;
-        stats.AttackDamage = enemyStats.AttackDamage;
-        stats.BaseMovementSpeed = enemyStats.CurrentMovementSpeed;
-        stats.CurrentMovementSpeed = enemyStats.CurrentMovementSpeed;
-        stats.MaxHealth = enemyStats.MaxHealth;
-        stats.AttackRange = enemyStats.AttackRange;
-        stats.AttackSpeed = enemyStats.AttackSpeed;
 
         patrolPoints[0].position = this.transform.position;
     }
@@ -121,7 +117,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         {
             float dist = Vector3.Distance(transform.position, player.transform.position);
 
-            if (dist <= stats.AttackRange)
+            if (dist <= BaseStats.GetStat(BaseStatType.AttackRange).GetCalculatedStatValue())
             {
                 ChangeState(new AttackState());
             }
@@ -136,17 +132,17 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     {
         if (canAttack)
         {
-            player.TakeDamage(stats.AttackDamage);
+            player.TakeDamage(BaseStats.GetStat(BaseStatType.AttackDamage).GetCalculatedStatValue());
             canAttack = false;
             StartCoroutine(AllowToAttackAfterCooldown());
         }
 
-        StopMoving(stats.AttackSpeed);
+        StopMoving(BaseStats.GetStat(BaseStatType.AttackSpeed).GetCalculatedStatValue());
     }
 
     private IEnumerator AllowToAttackAfterCooldown()
     {
-        yield return new WaitForSeconds(stats.AttackSpeed);
+        yield return new WaitForSeconds(BaseStats.GetStat(BaseStatType.AttackSpeed).GetCalculatedStatValue());
         canAttack = true;
     }
 
@@ -168,7 +164,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     protected IEnumerator ReturnToNormalMovementSpeed(float time)
     {
         yield return new WaitForSeconds(time);
-        stats.CurrentMovementSpeed = stats.BaseMovementSpeed;
+        stats.CurrentMovementSpeed = BaseStats.GetStat(BaseStatType.BaseMovementSpeed).GetCalculatedStatValue();
     }
 
     protected void ReturnToNormalMovementSpeed()
@@ -176,7 +172,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         if (returnToNormalSpeedCoroutine != null)
             StopCoroutine(returnToNormalSpeedCoroutine);
 
-        stats.CurrentMovementSpeed = stats.BaseMovementSpeed;
+        stats.CurrentMovementSpeed = BaseStats.GetStat(BaseStatType.BaseMovementSpeed).GetCalculatedStatValue();
     }
 
     public void ChangeStoppingDistance(float value)

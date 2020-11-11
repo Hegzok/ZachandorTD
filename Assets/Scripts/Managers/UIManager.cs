@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         HandleEvents(true);
-        SetMaxHealth(DataStorage.Player.Stats.MaxHealth);
+        SetMaxHealth(DataStorage.Player.BaseStats.GetStat(BaseStatType.MaxHealth).GetCalculatedStatValue());
         SetAllIcons();
     }
 
@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SetHealth(DataStorage.Player.Stats.CurrentHealth);
+        SetHealth(DataStorage.Player.DynamicStats.CurrentHealth);
     }
 
     public void SetMaxHealth(float value)

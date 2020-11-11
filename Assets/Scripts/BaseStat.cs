@@ -47,7 +47,9 @@ public class BaseStat
 
 public enum BaseStatType
 {
+    MaxHealth,
     BaseMovementSpeed,
+    VisibilityRadius,
     AttackDamage,
     SpellDamage,
     AttackRange,
