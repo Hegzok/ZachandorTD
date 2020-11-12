@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7f8cfef3e121544827bf8322ae66e4, type: 3}
   m_Name: PlayerAttackRange
   m_EditorClassIdentifier: 
-  baseStatType: 5
+  baseStatType: 7
   baseValue: 1.8
   growthValue: 0
   statName: Attack Range

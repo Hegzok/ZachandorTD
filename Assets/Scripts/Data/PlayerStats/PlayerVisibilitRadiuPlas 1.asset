@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7f8cfef3e121544827bf8322ae66e4, type: 3}
   m_Name: PlayerVisibilitRadiuPlas 1
   m_EditorClassIdentifier: 
-  baseStatType: 2
+  baseStatType: 4
   baseValue: 5.5
   growthValue: 0
   statName: Visibility Radius

@@ -13,7 +13,7 @@ public class AttackState : State<Enemy>
 
     public override void UpdateState(Enemy controller)
     {
-        controller.PerformAttack(player);
+        controller.PerformPhysicalAttack(player);
         controller.CheckIfPlayerInRangeToAttack(player);
     }
 

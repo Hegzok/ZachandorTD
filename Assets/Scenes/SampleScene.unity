@@ -4743,6 +4743,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 4c057e8b0e6a31b4e9db5ed3f97b9d79,
         type: 2}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: baseColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: baseColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2941197223004331518, guid: 3d2ad48d5af58a24291c39df3497037b,
+        type: 3}
+      propertyPath: baseColor.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3016573158398549141, guid: 3d2ad48d5af58a24291c39df3497037b,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -6193,10 +6208,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 200389541, guid: 3f16efdd26e538c44b2317a48b2a4ac1, type: 3}
-      propertyPath: timeToWaitIdleOnPatrol
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7168320376161824032, guid: 3f16efdd26e538c44b2317a48b2a4ac1,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level
+public class PlayerLevel
 {
-    private int currentLevel = 1;
-    public int CurrentLevel => currentLevel;
+    private float currentLevel = 1;
+    public float CurrentLevel => currentLevel;
 
-    private int currentExperience = 0;
-    public int CurrentExperience => currentExperience;
+    private float currentExperience = 0;
+    public float CurrentExperience => currentExperience;
 
-    public int requiredExperience;
-    private int RequiredExperience => requiredExperience;
+    public float requiredExperience;
+    private float RequiredExperience => requiredExperience;
 
     public void EnemyToExperience(Enemy enemy)
     {
-        GrantExperience(enemy.EnemyStats.CurrentExperience);
+        GrantExperience(enemy.BaseStats.GetStatFinalValue(BaseStatType.BaseExperience));
     }
 
-    public void GrantExperience(int amount)
+    public void GrantExperience(float amount)
     {
         currentExperience += amount;
 
@@ -26,10 +26,9 @@ public class Level
         {
             currentExperience -= requiredExperience;
             currentLevel++;
+            Debug.Log($"You advanced from level {currentLevel - 1} to level {currentLevel}");
             requiredExperience = CalculateRequiredExperience(currentLevel);
         }
-
-        Debug.Log(CurrentLevel);
     }
 
     // temporary change later
@@ -42,7 +41,7 @@ public class Level
         Debug.Log($"Current value is: {rounded}");
     }
 
-    private int CalculateRequiredExperience(int level)
+    private float CalculateRequiredExperience(float level)
     {
         return level * 25;
     }

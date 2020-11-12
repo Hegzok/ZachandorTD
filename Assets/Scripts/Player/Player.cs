@@ -14,7 +14,7 @@ public class Player : MonoBehaviour, IDamagable
     private DynamicStats dynamicStats;
     public DynamicStats DynamicStats => dynamicStats;
 
-    private Level playerLevel;
+    private PlayerLevel playerLevel;
 
     [SerializeField] 
     private Ability activeAbility;
@@ -22,6 +22,8 @@ public class Player : MonoBehaviour, IDamagable
     // Temporary variables change later
     public GameObject playerSkin;
     public Color color;
+    public Color baseColor;
+    public Coroutine ChangeColorCoroutine;
 
     private void Awake()
     {
@@ -70,7 +72,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void InitPlayer()
     {
-        playerLevel = new Level();
+        playerLevel = new PlayerLevel();
         baseStats = new CharacterStats(playerBaseStats);
 
         dynamicStats.CurrentHealth = BaseStats.GetStatFinalValue(BaseStatType.MaxHealth);
@@ -78,10 +80,16 @@ public class Player : MonoBehaviour, IDamagable
         dynamicStats.CurrentMovementSpeedBackwards = BaseStats.GetStatFinalValue(BaseStatType.BaseMovementSpeed) * 0.7f;
     }
 
-    public void TakeDamage(float value)
+    public void TakeDamage(int value)
     {
+        // temporary change later
+        if (ChangeColorCoroutine != null)
+        StopCoroutine(ChangeColorCoroutine);
+
         dynamicStats.CurrentHealth -= value;
-        StartCoroutine(ChangeSkinColor(color));
+
+        // temporary change later
+        ChangeColorCoroutine = StartCoroutine(ChangeSkinColor(color));
 
         Die();
     }
@@ -93,13 +101,11 @@ public class Player : MonoBehaviour, IDamagable
 
         Material[] mats = skin.materials;
 
-        Color tempColor = mats[0].color;
-
         mats[0].color = color;
 
         yield return new WaitForSeconds(0.2f);
 
-        mats[0].color = tempColor;  
+        mats[0].color = baseColor;  
     }
 
     public void Heal(int value)
@@ -157,6 +163,10 @@ public class Player : MonoBehaviour, IDamagable
     {
         Gizmos.color = Color.red;
         //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
-        Gizmos.DrawWireSphere(transform.position, BaseStats.GetStatFinalValue(BaseStatType.VisibilityRadius));
+        if (BaseStats != null)
+        {
+            Gizmos.DrawWireSphere(transform.position, BaseStats.GetStatFinalValue(BaseStatType.VisibilityRadius));
+        }
+
     }
 }

@@ -1,5 +1,5 @@
 ﻿public interface IDamagable
 {
-    void TakeDamage(float value);
+    void TakeDamage(int value);
     void SlowDownMovementSpeed(float mitigationPercent, float time);
 }

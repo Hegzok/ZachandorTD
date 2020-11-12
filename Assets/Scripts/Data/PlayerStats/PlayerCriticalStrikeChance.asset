@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7f8cfef3e121544827bf8322ae66e4, type: 3}
   m_Name: PlayerCriticalStrikeChance
   m_EditorClassIdentifier: 
-  baseStatType: 7
-  baseValue: 0
+  baseStatType: 9
+  baseValue: 20
   growthValue: 5
   statName: Critical Strike Chance
   statDescription: Determines how often you can striky criticaly.

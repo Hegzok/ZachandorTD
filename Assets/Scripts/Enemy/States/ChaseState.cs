@@ -21,6 +21,6 @@ public class ChaseState : State<Enemy>
 
     public override void DeinitState(Enemy controller)
     {
-        Debug.Log($"{controller.gameObject.name} stopped chasing player");
+
     }
 }

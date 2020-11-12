@@ -14,6 +14,14 @@ public class CharacterStats
         }
     }
 
+    public CharacterStats(List<EnemyStatObject> baseStatObjects)
+    {
+        foreach (var stat in baseStatObjects)
+        {
+            baseStats.Add(stat.ReturnBaseStat());
+        }
+    }
+
     public BaseStat GetStat(BaseStatType stat)
     {
         return this.baseStats.Find(x => x.StatType == stat);

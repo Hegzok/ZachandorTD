@@ -5,21 +5,21 @@ using UnityEngine.AI;
 
 public class Enemy : StateMachine<Enemy>, IDamagable
 {
-    [SerializeField]
     private CharacterStats baseStats;
     public CharacterStats BaseStats => baseStats;
 
-    [SerializeField] 
-    protected EnemyStats enemyStats;
-    public EnemyStats EnemyStats => enemyStats;
+    [SerializeField]
+    private List<EnemyStatObject> enemyBaseStats;
+    public List<EnemyStatObject> EnemyBaseStats => enemyBaseStats;
+
+    protected DynamicStats dynamicStats;
+    public DynamicStats DynamicStats => dynamicStats;
 
     protected EnemyMovement enemyMovement;
     protected NavMeshAgent navMeshAgent;
+    protected Calculator calculator;
 
-    protected DynamicStats stats;
-    public DynamicStats Stats => stats;
-
-    [SerializeField] 
+    [SerializeField]
     protected float timeToWaitIdleOnPatrol = 3f;
 
     protected bool aware;
@@ -53,21 +53,27 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     void Update()
     {
         UpdateState();
-        navMeshAgent.speed = stats.CurrentMovementSpeed;
+        navMeshAgent.speed = dynamicStats.CurrentMovementSpeed;
     }
 
     protected void InitEnemy()
     {
+        baseStats = new CharacterStats(enemyBaseStats);
+
+        dynamicStats.CurrentHealth = BaseStats.GetStatFinalValue(BaseStatType.MaxHealth);
+        dynamicStats.CurrentMovementSpeed = BaseStats.GetStatFinalValue(BaseStatType.BaseMovementSpeed);
+
         allPatrolPointsParent = DataStorage.AllPatrolPointsParent;
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyMovement = new EnemyMovement(navMeshAgent, patrolPoints, timeToWaitIdleOnPatrol);
+        calculator = new Calculator();
 
         patrolPoints[0].position = this.transform.position;
     }
 
-    public void TakeDamage(float value)
+    public void TakeDamage(int value)
     {
-        stats.CurrentHealth -= value;
+        dynamicStats.CurrentHealth -= value;
 
         Die();
     }
@@ -81,7 +87,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
             StopCoroutine(changeBodyColourCoroutine);
         }
 
-       changeBodyColourCoroutine = StartCoroutine(ChangeBodyColor(color, slowDuration));
+        changeBodyColourCoroutine = StartCoroutine(ChangeBodyColor(color, slowDuration));
     }
 
     private IEnumerator ChangeBodyColor(Color color, float slowDuration)
@@ -104,7 +110,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
 
     protected void Die()
     {
-        if (stats.CurrentHealth <= 0)
+        if (dynamicStats.CurrentHealth <= 0)
         {
             EventsManager.CallOnEnemyDeath(this);
             Destroy(this.gameObject);
@@ -117,7 +123,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         {
             float dist = Vector3.Distance(transform.position, player.transform.position);
 
-            if (dist <= BaseStats.GetStat(BaseStatType.AttackRange).GetCalculatedStatValue())
+            if (dist <= BaseStats.GetStatFinalValue(BaseStatType.AttackRange))
             {
                 ChangeState(new AttackState());
             }
@@ -128,21 +134,43 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         }
     }
 
-    public void PerformAttack(Player player)
+    public void PerformPhysicalAttack(Player player)
     {
         if (canAttack)
         {
-            player.TakeDamage(BaseStats.GetStat(BaseStatType.AttackDamage).GetCalculatedStatValue());
+            float CalculatedDamage = calculator.CalculateEnemyPhysicalDamage(BaseStats.GetStatFinalValue(BaseStatType.AttackDamage));
+            int FinalDamageNegated = Mathf.RoundToInt(calculator.CalculateDamageNegated(CalculatedDamage, player.BaseStats.GetStatFinalValue(BaseStatType.Armor)));
+             
+            player.TakeDamage(FinalDamageNegated);
+            Debug.Log($"FinalDamage is {FinalDamageNegated}");
+
             canAttack = false;
             StartCoroutine(AllowToAttackAfterCooldown());
         }
 
-        StopMoving(BaseStats.GetStat(BaseStatType.AttackSpeed).GetCalculatedStatValue());
+        StopMoving(BaseStats.GetStatFinalValue(BaseStatType.AttackSpeed));
+    }
+
+    public void PerformMagicalAttack(Player player)
+    {
+        if (canAttack)
+        {
+            float CalculatedDamage = calculator.CalculateEnemyMagicalDamage(BaseStats.GetStatFinalValue(BaseStatType.SpellDamage));
+            int FinalDamageNegated = Mathf.RoundToInt(calculator.CalculateDamageNegated(CalculatedDamage, player.BaseStats.GetStatFinalValue(BaseStatType.MagicResist)));
+
+            player.TakeDamage(FinalDamageNegated);
+            Debug.Log($"FinalDamage is {FinalDamageNegated}");
+
+            canAttack = false;
+            StartCoroutine(AllowToAttackAfterCooldown());
+        }
+
+        StopMoving(BaseStats.GetStatFinalValue(BaseStatType.AttackSpeed));
     }
 
     private IEnumerator AllowToAttackAfterCooldown()
     {
-        yield return new WaitForSeconds(BaseStats.GetStat(BaseStatType.AttackSpeed).GetCalculatedStatValue());
+        yield return new WaitForSeconds(BaseStats.GetStatFinalValue(BaseStatType.AttackSpeed));
         canAttack = true;
     }
 
@@ -156,7 +184,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         ReturnToNormalMovementSpeed();
 
         float multiplier = 1f - mitigationPercent;
-        stats.CurrentMovementSpeed = stats.CurrentMovementSpeed * multiplier;
+        dynamicStats.CurrentMovementSpeed = dynamicStats.CurrentMovementSpeed * multiplier;
 
         returnToNormalSpeedCoroutine = StartCoroutine(ReturnToNormalMovementSpeed(time));
     }
@@ -164,7 +192,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     protected IEnumerator ReturnToNormalMovementSpeed(float time)
     {
         yield return new WaitForSeconds(time);
-        stats.CurrentMovementSpeed = BaseStats.GetStat(BaseStatType.BaseMovementSpeed).GetCalculatedStatValue();
+        dynamicStats.CurrentMovementSpeed = BaseStats.GetStatFinalValue(BaseStatType.BaseMovementSpeed);
     }
 
     protected void ReturnToNormalMovementSpeed()
@@ -172,7 +200,7 @@ public class Enemy : StateMachine<Enemy>, IDamagable
         if (returnToNormalSpeedCoroutine != null)
             StopCoroutine(returnToNormalSpeedCoroutine);
 
-        stats.CurrentMovementSpeed = BaseStats.GetStat(BaseStatType.BaseMovementSpeed).GetCalculatedStatValue();
+        dynamicStats.CurrentMovementSpeed = BaseStats.GetStatFinalValue(BaseStatType.BaseMovementSpeed);
     }
 
     public void ChangeStoppingDistance(float value)

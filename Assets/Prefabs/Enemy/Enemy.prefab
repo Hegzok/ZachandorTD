@@ -816,7 +816,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a33fb141807eb43ae64811e2768a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 11400000, guid: 922b275e216a30841a88c571e5efdcc9, type: 2}
+  enemyBaseStats:
+  - {fileID: 11400000, guid: a7621f700572d5348a62f81340a1d7c4, type: 2}
+  - {fileID: 11400000, guid: fadb7fbf4df2edf4d9b0751f1b5ff937, type: 2}
+  - {fileID: 11400000, guid: cdd48e69c05cc5547af35bc7df777b3b, type: 2}
+  - {fileID: 11400000, guid: 361a4e17fe3569f4b8491c9a2e73834b, type: 2}
+  - {fileID: 11400000, guid: ba1a9392a1069c54cabbdca2a26c696d, type: 2}
+  - {fileID: 11400000, guid: 595e3530043083749b86b0195389b05e, type: 2}
+  - {fileID: 11400000, guid: e7ce8743eae0cd44e8733815cbd66a4b, type: 2}
+  - {fileID: 11400000, guid: 727961e9fdeb98846a9b08e141a1d322, type: 2}
+  - {fileID: 11400000, guid: da290960c2ad1544d9e36e58bbea02df, type: 2}
+  - {fileID: 11400000, guid: 5db587feefac90f4c8ca99dd679b3c12, type: 2}
   timeToWaitIdleOnPatrol: 3
   patrolPoints:
   - {fileID: 942644706}

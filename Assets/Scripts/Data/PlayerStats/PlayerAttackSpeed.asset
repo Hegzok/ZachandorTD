@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7f8cfef3e121544827bf8322ae66e4, type: 3}
   m_Name: PlayerAttackSpeed
   m_EditorClassIdentifier: 
-  baseStatType: 6
+  baseStatType: 8
   baseValue: 1
   growthValue: -0.05
   statName: Attack Speed

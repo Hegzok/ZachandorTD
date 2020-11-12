@@ -23,6 +23,14 @@ public class BaseStat
         this.StatDescription = statDescription;
     }
 
+    public BaseStat(BaseStatType statType, float baseValue, float growthValue)
+    {
+        this.BaseAdditives = new List<StatBonus>();
+        this.StatType = statType;
+        this.BaseValue = baseValue;
+        this.GrowthValue = growthValue;
+    }
+
     public void AddStatBonus(StatBonus statBonus)
     {
         this.BaseAdditives.Add(statBonus);
@@ -49,6 +57,8 @@ public enum BaseStatType
 {
     MaxHealth,
     BaseMovementSpeed,
+    BaseExperience,
+    BaseLevel,
     VisibilityRadius,
     AttackDamage,
     SpellDamage,
