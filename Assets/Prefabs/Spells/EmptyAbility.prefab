@@ -49,6 +49,7 @@ MonoBehaviour:
   abilityName: Empty
   cooldown: 0
   damage: 0
+  abilityType: 1
 --- !u!1001 &6873864162918223293
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventorySpells : MonoBehaviour
+public class Inventory : MonoBehaviour
 {
     [SerializeField] private List<Ability> spells = new List<Ability>();
     public List<Ability> Spells => spells;
 
-    [SerializeField] private Slot[] spellsBarUI;
+    [SerializeField] private Ability basicAttack;
+    public Ability BasicAttack => basicAttack;
 
     [SerializeField] private Ability[] testAbilitys;
     [SerializeField] private Ability testAbility;
@@ -83,12 +84,13 @@ public class InventorySpells : MonoBehaviour
             EventsManager.CallOnAbilityPickUpUI(firstFindIndex, ability);
             Debug.Log($"Added {spells[firstFindIndex]}, at the index of {firstFindIndex}");
         }
-        else if (spells.Count < maxSpellsNumber && !CheckForEmptySlot())
-        {
-            spells.Add(ability);
-            EventsManager.CallOnAbilityPickUpUI(spells.Count - 1, ability);
-            Debug.Log($"Added {ability.AbilityName}");
-        }
+        // this should never happen 
+        //else if (spells.Count < maxSpellsNumber && !CheckForEmptySlot())
+        //{
+        //    spells.Add(ability);
+        //    EventsManager.CallOnAbilityPickUpUI(spells.Count - 1, ability);
+        //    Debug.Log($"Added {ability.AbilityName}");
+        //}
     }
 
     private bool CheckForEmptySlot()

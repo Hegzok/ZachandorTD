@@ -7,6 +7,7 @@ public class Heal : Ability
     // Start is called before the first frame update
     void Start()
     {
+        abilityType = AbilityType.Spell;
         Destroy(this.gameObject, 5f);
     }
 

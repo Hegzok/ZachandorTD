@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBall : Ability
+public class DefaultAttack : Ability
 {
     [SerializeField] private float speed;
     public float Speed => speed;
@@ -10,7 +10,7 @@ public class FireBall : Ability
     // Start is called before the first frame update
     void Start()
     {
-        abilityType = AbilityType.Spell;
+        abilityType = AbilityType.Basic;
         transform.LookAt(DataStorage.MouseInfo.ReturnMousePos(this.transform));
         Destroy(this.gameObject, 5f);
     }
@@ -41,7 +41,4 @@ public class FireBall : Ability
             Destroy(this.gameObject);
         }
     }
-
-
-
 }

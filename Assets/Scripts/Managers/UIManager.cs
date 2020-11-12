@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private InventorySpells inventorySpells;
+    [SerializeField] private Inventory inventory;
     [SerializeField] private Slot[] spellsBar;
+    [SerializeField] private Slot basicAttackSlot;
 
     [SerializeField]
     private Slider healthBarSlider;
@@ -28,6 +29,20 @@ public class UIManager : MonoBehaviour
         HandleEvents(false);
     }
 
+    private void HandleEvents(bool switcher)
+    {
+        if (switcher)
+        {
+            EventsManager.OnAbilityPickUpUI += SetIcon;
+            EventsManager.OnBasicAttackPickUp += SetIcon;
+        }
+        else
+        {
+            EventsManager.OnAbilityPickUpUI -= SetIcon;
+            EventsManager.OnBasicAttackPickUp -= SetIcon;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -47,27 +62,15 @@ public class UIManager : MonoBehaviour
         healthBarText.text = value.ToString();
     }
 
-    private void HandleEvents(bool switcher)
-    {
-        if (switcher)
-        {
-            EventsManager.OnAbilityPickUpUI += SetIcon;
-            EventsManager.OnHotkeyChosen += SetSlotActiveImage;
-        }
-        else
-        {
-            EventsManager.OnAbilityPickUpUI -= SetIcon;
-            EventsManager.OnHotkeyChosen -= SetSlotActiveImage;
-        }
-    }
-
     private void SetAllIcons()
     {
-        for (int i = 0; i < inventorySpells.Spells.Count; i++)
+        for (int i = 0; i < inventory.Spells.Count; i++)
         {
-            if (inventorySpells.Spells[i] != DataStorage.EmptyAbility)
-            spellsBar[i].SetIcon(inventorySpells.Spells[i]);
+            if (inventory.Spells[i] != DataStorage.EmptyAbility)
+            spellsBar[i].SetIcon(inventory.Spells[i]);
         }
+
+        SetIcon(inventory.BasicAttack);
     }
 
     private void SetIcon(int index, Ability ability)
@@ -75,17 +78,13 @@ public class UIManager : MonoBehaviour
         spellsBar[index].SetIcon(ability);
     }
 
+    private void SetIcon(Ability ability)
+    {
+        basicAttackSlot.SetIcon(ability);
+    }
+
     public void AbilityDiscard(int index)
     {
         EventsManager.CallOnAbilityDiscard(index);
-    }
-
-    private void SetSlotActiveImage(int index)
-    {
-        lastActiveSlot?.SetActiveImage(false);
-
-        spellsBar[index].SetActiveImage(true);
-
-        lastActiveSlot = spellsBar[index];    
     }
 }

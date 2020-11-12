@@ -10,8 +10,6 @@ public class Slot : MonoBehaviour
     [SerializeField] private Image icon;
     public Image Icon => icon;
 
-    [SerializeField] private Image activeSlotImage;
-
     private bool empty;
     public bool Empty => empty;
 
@@ -60,10 +58,5 @@ public class Slot : MonoBehaviour
             icon.sprite = DataStorage.EmptyAbility.Icon;
             empty = true;
         }
-    }
-
-    public void SetActiveImage(bool active)
-    {
-        activeSlotImage.enabled = active;
     }
 }

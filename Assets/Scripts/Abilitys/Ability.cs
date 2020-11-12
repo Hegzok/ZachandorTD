@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
-    [SerializeField] private GameObject abilityPrefab;
+    [SerializeField] protected GameObject abilityPrefab;
     public GameObject AbilityPrefab => abilityPrefab;
 
-    [SerializeField] private Sprite icon;
+    [SerializeField] protected Sprite icon;
     public Sprite Icon => icon;
 
-    [SerializeField] private string abilityName;
+    [SerializeField] protected string abilityName;
     public string AbilityName => abilityName;
 
-    [SerializeField] private float cooldown;
+    [SerializeField] protected float cooldown;
     public float Cooldown => cooldown;
 
-    [SerializeField] private int damage;
+    [SerializeField] protected int damage;
     public int Damage => damage;
 
     [SerializeField] protected AbilityType abilityType;
@@ -31,7 +31,6 @@ public class Ability : MonoBehaviour
 
 public enum AbilityType
 {
-    Fire,
-    Ice,
-    Nature
+    Basic,
+    Spell
 }

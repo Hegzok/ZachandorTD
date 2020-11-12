@@ -17,6 +17,7 @@ public class IceBolt : Ability
     // Start is called before the first frame update
     void Start()
     {
+        abilityType = AbilityType.Spell;
         transform.LookAt(DataStorage.MouseInfo.ReturnMousePos(this.transform));
         Destroy(this.gameObject, 5f);
     }

@@ -80,7 +80,7 @@ MonoBehaviour:
   abilityName: Heal
   cooldown: 5
   damage: 25
-  abilityType: 2
+  abilityType: 1
 --- !u!1001 &6879172518548842341
 PrefabInstance:
   m_ObjectHideFlags: 0

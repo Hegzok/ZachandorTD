@@ -7,6 +7,7 @@ public class EventsManager
 {
     public static UnityAction<Ability> OnAbilityPickUp;
     public static UnityAction<int, Ability> OnAbilityPickUpUI;
+    public static UnityAction<Ability> OnBasicAttackPickUp;
     public static UnityAction<int> OnAbilityDiscard;
     public static UnityAction<int> OnHotkeyChosen;
     public static UnityAction<Ability> OnAbilityChosen;
@@ -20,6 +21,11 @@ public class EventsManager
     public static void CallOnAbilityPickUp(Ability ability)
     {
         OnAbilityPickUp?.Invoke(ability);
+    }
+
+    public static void CallOnBasicAttackPickUp(Ability ability)
+    {
+        OnBasicAttackPickUp?.Invoke(ability);
     }
 
     public static void CallOnAbilityDiscard(int index)

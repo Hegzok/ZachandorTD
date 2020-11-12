@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamagable
 {
+    private Inventory inventory;
+
     private CharacterStats baseStats;
     public CharacterStats BaseStats => baseStats;
 
@@ -17,7 +19,7 @@ public class Player : MonoBehaviour, IDamagable
     private PlayerLevel playerLevel;
 
     [SerializeField] 
-    private Ability activeAbility;
+    private Ability currentBasicAttack;
 
     // Temporary variables change later
     public GameObject playerSkin;
@@ -33,14 +35,14 @@ public class Player : MonoBehaviour, IDamagable
     // Start is called before the first frame update
     void Start()
     {
-        EventsManager.OnAbilityChosen += GetActiveAbility;
         EventsManager.OnEnemyDeath += playerLevel.EnemyToExperience;
+        EventsManager.OnBasicAttackPickUp += GrabCurrentBasicAttack;
     }
 
     private void OnDisable()
     {
-        EventsManager.OnAbilityChosen -= GetActiveAbility;
         EventsManager.OnEnemyDeath -= playerLevel.EnemyToExperience;
+        EventsManager.OnBasicAttackPickUp -= GrabCurrentBasicAttack;
     }
 
     // Update is called once per frame
@@ -62,16 +64,19 @@ public class Player : MonoBehaviour, IDamagable
 
     private void UseAbility()
     {
-        activeAbility.Use();
+        currentBasicAttack.Use();
     }
 
-    private void GetActiveAbility(Ability ability)
+    private void GrabCurrentBasicAttack(Ability basicAttack)
     {
-        activeAbility = ability;
+        currentBasicAttack = basicAttack;
     }
 
     private void InitPlayer()
     {
+        inventory = GetComponent<Inventory>();
+        currentBasicAttack = inventory.BasicAttack;
+
         playerLevel = new PlayerLevel();
         baseStats = new CharacterStats(playerBaseStats);
 
