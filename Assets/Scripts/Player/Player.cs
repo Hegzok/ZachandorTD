@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour, IDamagable
 {
+    private PlayerInputActions playerInputActions;
     private Inventory inventory;
+
+    private Calculator calculator;
+    public Calculator Calculator => calculator;
 
     private CharacterStats baseStats;
     public CharacterStats BaseStats => baseStats;
@@ -18,7 +23,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private PlayerLevel playerLevel;
 
-    [SerializeField] 
+    [SerializeField]
     private Ability currentBasicAttack;
 
     // Temporary variables change later
@@ -26,6 +31,8 @@ public class Player : MonoBehaviour, IDamagable
     public Color color;
     public Color baseColor;
     public Coroutine ChangeColorCoroutine;
+
+
 
     private void Awake()
     {
@@ -39,8 +46,21 @@ public class Player : MonoBehaviour, IDamagable
         EventsManager.OnBasicAttackPickUp += GrabCurrentBasicAttack;
     }
 
+    private void OnEnable()
+    {
+        playerInputActions.Enable();
+
+        playerInputActions.Land.Shoot.performed += x => UseAbility();
+        playerInputActions.Land.RightClick.performed += x => playerLevel.CalculateStat(613.36f, 106f, 2f);
+    }
+
     private void OnDisable()
     {
+        playerInputActions.Disable();
+
+        playerInputActions.Land.Shoot.performed -= x => UseAbility();
+        playerInputActions.Land.RightClick.performed -= x => playerLevel.CalculateStat(613.36f, 106f, 2f);
+
         EventsManager.OnEnemyDeath -= playerLevel.EnemyToExperience;
         EventsManager.OnBasicAttackPickUp -= GrabCurrentBasicAttack;
     }
@@ -48,18 +68,7 @@ public class Player : MonoBehaviour, IDamagable
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            UseAbility();
-        }
-
         LookForEnemy();
-
-        // temporary change later
-        if (Input.GetMouseButtonDown(1))
-        {
-            playerLevel.CalculateStat(613.36f, 106f, 2f); 
-        }
     }
 
     private void UseAbility()
@@ -74,8 +83,10 @@ public class Player : MonoBehaviour, IDamagable
 
     private void InitPlayer()
     {
+        playerInputActions = new PlayerInputActions();
+        calculator = new Calculator();
         inventory = GetComponent<Inventory>();
-        currentBasicAttack = inventory.BasicAttack;
+        currentBasicAttack = inventory.CurrentBasicAttack;
 
         playerLevel = new PlayerLevel();
         baseStats = new CharacterStats(playerBaseStats);
@@ -89,7 +100,7 @@ public class Player : MonoBehaviour, IDamagable
     {
         // temporary change later
         if (ChangeColorCoroutine != null)
-        StopCoroutine(ChangeColorCoroutine);
+            StopCoroutine(ChangeColorCoroutine);
 
         dynamicStats.CurrentHealth -= value;
 
@@ -110,7 +121,7 @@ public class Player : MonoBehaviour, IDamagable
 
         yield return new WaitForSeconds(0.2f);
 
-        mats[0].color = baseColor;  
+        mats[0].color = baseColor;
     }
 
     public void Heal(int value)
@@ -162,6 +173,34 @@ public class Player : MonoBehaviour, IDamagable
                 }
             }
         }
+    }
+
+    public float ReturnFinalPhysicalDamage(IDamagable enemy)
+    {
+        float finalValue = 0f;
+
+        float playerDamage = calculator.CalculatePlayerPhysicalDamage(inventory.CurrentBasicAttack,
+        BaseStats.GetStatFinalValue(BaseStatType.AttackDamage),
+        BaseStats.GetStatFinalValue(BaseStatType.CriticalStrikeChance),
+        BaseStats.GetStatFinalValue(BaseStatType.CriticalStrikeDamage));
+
+        finalValue = calculator.CalculateDamageNegated(playerDamage, enemy.BaseStats.GetStatFinalValue(BaseStatType.Armor));
+
+        return finalValue;
+    }
+
+    public float ReturnFinalMagicalDamage(IDamagable enemy)
+    {
+        float finalValue = 0f;
+
+        float playerDamage = calculator.CalculatePlayerMagicalDamage(inventory.CurrentSpell,
+        BaseStats.GetStatFinalValue(BaseStatType.SpellDamage),
+        BaseStats.GetStatFinalValue(BaseStatType.CriticalStrikeChance),
+        BaseStats.GetStatFinalValue(BaseStatType.CriticalStrikeDamage));
+
+        finalValue = calculator.CalculateDamageNegated(playerDamage, enemy.BaseStats.GetStatFinalValue(BaseStatType.MagicResist));
+
+        return finalValue;
     }
 
     private void OnDrawGizmos()

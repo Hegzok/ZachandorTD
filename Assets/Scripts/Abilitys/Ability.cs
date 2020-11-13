@@ -16,8 +16,8 @@ public class Ability : MonoBehaviour
     [SerializeField] protected float cooldown;
     public float Cooldown => cooldown;
 
-    [SerializeField] protected int damage;
-    public int Damage => damage;
+    [SerializeField] protected float damage;
+    public float Damage => damage;
 
     [SerializeField] protected AbilityType abilityType;
     public AbilityType AT => abilityType;

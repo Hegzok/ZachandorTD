@@ -1,19 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private Texture2D crosshair; // Delete
     [SerializeField] private DynamicStats dynamicStats;
+
+    private PlayerInputActions playerInputActions;
     private CharacterController characterController;
 
     private Vector3 velocity;
 
+    [SerializeField]
+    private float horizontal;
+    [SerializeField]
+    private float vertical;
+
     private void Awake()
     {
-
+        playerInputActions = new PlayerInputActions();
     }
 
     // Start is called before the first frame update
@@ -31,14 +39,28 @@ public class PlayerMovement : MonoBehaviour
     {
         RotateTowardsMouse();
         Move();
-        HandleHotkeys();
+        //HandleHotkeys();
+    }
+
+    private void OnEnable()
+    {
+        playerInputActions.Enable();
+
+        playerInputActions.Land.MoveHorizontal.performed += x => horizontal = x.ReadValue<float>();
+        playerInputActions.Land.MoveVertical.performed += x => vertical = x.ReadValue<float>();
+        
+    }
+
+    private void OnDisable()
+    {
+        playerInputActions.Disable();
+
+        playerInputActions.Land.MoveHorizontal.performed -= x => horizontal = x.ReadValue<float>();
+        playerInputActions.Land.MoveVertical.performed -= x => vertical = x.ReadValue<float>();
     }
 
     private void Move()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
         Vector3 move = new Vector3(horizontal, 0f, vertical);
 
         Vector3 localVel = transform.InverseTransformDirection(move);

@@ -35,7 +35,7 @@ public class FireBall : Ability
 
             if (damagable != null)
             {
-                damagable.TakeDamage(Damage);
+                damagable.TakeDamage(Mathf.RoundToInt(Damage));
             }
 
             Destroy(this.gameObject);

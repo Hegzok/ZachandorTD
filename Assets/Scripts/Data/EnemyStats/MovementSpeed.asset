@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MovementSpeed
   m_EditorClassIdentifier: 
   baseStatType: 1
-  baseValue: 5
+  baseValue: 5.5
   growthValue: 0

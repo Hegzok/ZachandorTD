@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
             spellsBar[i].SetIcon(inventory.Spells[i]);
         }
 
-        SetIcon(inventory.BasicAttack);
+        SetIcon(inventory.CurrentBasicAttack);
     }
 
     private void SetIcon(int index, Ability ability)

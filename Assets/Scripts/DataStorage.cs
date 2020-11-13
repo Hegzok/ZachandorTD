@@ -31,6 +31,8 @@ public class DataStorage : MonoBehaviour
     private void Awake()
     {
         MouseInfo = mouseInfo;
+        mouseInfo.OnEnable();
+
         PlayerHand = playerHand;
         EmptyAbility = emptyAbility;
         Player = player;

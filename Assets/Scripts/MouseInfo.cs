@@ -5,11 +5,21 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Mouse", menuName =("Mouse/MouseInfo"))]
 public class MouseInfo : ScriptableObject
 {
+    PlayerInputActions playerInputActions;
     Vector3 LookPosition;
+    Vector2 mousePos;
+
+    public void OnEnable()
+    {
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Enable();
+
+        playerInputActions.Land.MousePos.performed += x => mousePos = x.ReadValue<Vector2>();
+    }
 
     public Vector3 ReturnMousePos(Transform objectToRotate)
     {
-        Ray mousePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray mousePosition = Camera.main.ScreenPointToRay(mousePos);
 
         RaycastHit hit;
 

@@ -7,8 +7,12 @@ public class Inventory : MonoBehaviour
     [SerializeField] private List<Ability> spells = new List<Ability>();
     public List<Ability> Spells => spells;
 
-    [SerializeField] private Ability basicAttack;
-    public Ability BasicAttack => basicAttack;
+    [SerializeField] private Ability currentBasicAttack;
+    public Ability CurrentBasicAttack => currentBasicAttack;
+
+    [SerializeField]
+    private Ability currentSpell;
+    public Ability CurrentSpell => currentSpell;
 
     [SerializeField] private Ability[] testAbilitys;
     [SerializeField] private Ability testAbility;

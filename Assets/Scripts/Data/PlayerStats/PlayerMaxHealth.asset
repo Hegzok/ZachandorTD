@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerMaxHealth
   m_EditorClassIdentifier: 
   baseStatType: 0
-  baseValue: 20000
+  baseValue: 400
   growthValue: 106
   statName: Max Health
   statDescription: Determines your maximum health points.

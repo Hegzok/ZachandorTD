@@ -4,29 +4,35 @@ using UnityEngine;
 
 public class Calculator
 {
-    public float CalculatePlayerPhysicalDamage(float attackDamage, float criticalStrikeChance, float criticalStrikeDamage)
+    public float CalculatePlayerPhysicalDamage(Ability ability, float playerAttackDamage, float playerCriticalStrikeChance, float playerCriticalStrikeDamage)
     {
         float finalValue = 0f;
 
-        finalValue = Random.Range(attackDamage * 0.78f, attackDamage * 1.22f);
+        float playerDamage = Random.Range(playerAttackDamage * 0.78f, playerAttackDamage * 1.22f);
+        float spellDamage = Random.Range(ability.Damage * 0.78f, ability.Damage * 1.22f);
 
-        if (CanCrit(criticalStrikeChance))
+        finalValue = playerDamage + spellDamage;
+
+        if (CanCrit(playerCriticalStrikeChance))
         {
-            finalValue *= criticalStrikeDamage;
+            finalValue *= playerCriticalStrikeDamage;
         }
 
         return finalValue;
     }
 
-    public float CalculatePlayerMagicalDamage(float spellDamage, float criticalStrikeChance, float criticalStrikeDamage)
+    public float CalculatePlayerMagicalDamage(Ability ability, float playerSpellDamage, float playerCriticalStrikeChance, float playerCriticalStrikeDamage)
     {
         float finalValue = 0f;
 
-        finalValue = Random.Range(spellDamage * 0.68f, spellDamage * 1.32f);
+        float playerDamage = Random.Range(playerSpellDamage * 0.68f, playerSpellDamage * 1.32f);
+        float spellDamage = Random.Range(ability.Damage * 0.68f, ability.Damage * 1.32f);
 
-        if (CanCrit(criticalStrikeChance))
+        finalValue = playerDamage + spellDamage;
+
+        if (CanCrit(playerCriticalStrikeChance))
         {
-            finalValue *= criticalStrikeDamage;
+            finalValue *= playerCriticalStrikeDamage;
         }
 
         return finalValue;
@@ -68,7 +74,7 @@ public class Calculator
     {
         int percentage = Mathf.RoundToInt(Random.Range(0f, 100f));
 
-        if (percentage > criticalStrikeChance)
+        if (percentage <= criticalStrikeChance)
         {
             Debug.Log($"Chance for crit was: {percentage} where critical strike chance were {criticalStrikeChance} and it returned true");
             return true;

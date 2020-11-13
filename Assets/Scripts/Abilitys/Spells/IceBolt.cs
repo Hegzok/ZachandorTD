@@ -42,7 +42,7 @@ public class IceBolt : Ability
 
             if (damagable != null)
             {
-                damagable.TakeDamage(Damage);
+                damagable.TakeDamage(Mathf.RoundToInt(Damage));
                 damagable.SlowDownMovementSpeed(slowDownPercentage, slowDownTimer);
 
                 // temporary will change later

@@ -35,7 +35,9 @@ public class DefaultAttack : Ability
 
             if (damagable != null)
             {
-                damagable.TakeDamage(Damage);
+                int damage = Mathf.RoundToInt(DataStorage.Player.ReturnFinalPhysicalDamage(damagable));
+                damagable.TakeDamage(damage);
+                Debug.Log($"enemy took {damage} damage");
             }
 
             Destroy(this.gameObject);

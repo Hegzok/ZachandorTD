@@ -31,6 +31,8 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     protected bool canAttack = true;
     public bool CanAttack => canAttack;
 
+
+
     [SerializeField] protected Transform[] patrolPoints;
     protected Transform allPatrolPointsParent;
 
@@ -142,7 +144,6 @@ public class Enemy : StateMachine<Enemy>, IDamagable
             int FinalDamageNegated = Mathf.RoundToInt(calculator.CalculateDamageNegated(CalculatedDamage, player.BaseStats.GetStatFinalValue(BaseStatType.Armor)));
              
             player.TakeDamage(FinalDamageNegated);
-            Debug.Log($"FinalDamage is {FinalDamageNegated}");
 
             canAttack = false;
             StartCoroutine(AllowToAttackAfterCooldown());

@@ -25,6 +25,6 @@ public class Heal : Ability
 
         tempSpell.transform.SetParent(DataStorage.Player.transform);
 
-        DataStorage.Player.Heal(Damage);
+        DataStorage.Player.Heal(Mathf.RoundToInt(Damage));
     }
 }
