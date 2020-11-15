@@ -81,6 +81,8 @@ MonoBehaviour:
   cooldown: 0.5
   damage: 13
   abilityType: 0
+  damagePopUp: {fileID: -4571094850834985167, guid: 6dd1edace2737654bb859c6373f24cc5,
+    type: 3}
   speed: 20
 --- !u!1 &3117400504572502101
 GameObject:

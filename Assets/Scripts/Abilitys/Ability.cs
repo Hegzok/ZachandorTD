@@ -4,23 +4,32 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
-    [SerializeField] protected GameObject abilityPrefab;
+    [SerializeField] 
+    protected GameObject abilityPrefab;
     public GameObject AbilityPrefab => abilityPrefab;
 
-    [SerializeField] protected Sprite icon;
+    [SerializeField] 
+    protected Sprite icon;
     public Sprite Icon => icon;
 
-    [SerializeField] protected string abilityName;
+    [SerializeField] 
+    protected string abilityName;
     public string AbilityName => abilityName;
 
-    [SerializeField] protected float cooldown;
+    [SerializeField] 
+    protected float cooldown;
     public float Cooldown => cooldown;
 
-    [SerializeField] protected float damage;
+    [SerializeField] 
+    protected float damage;
     public float Damage => damage;
 
-    [SerializeField] protected AbilityType abilityType;
+    [SerializeField] 
+    protected AbilityType abilityType;
     public AbilityType AT => abilityType;
+
+    [SerializeField] 
+    protected DamagePopUp damagePopUp;
 
     public virtual void Use()
     {

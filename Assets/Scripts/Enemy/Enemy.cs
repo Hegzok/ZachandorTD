@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Enemy : StateMachine<Enemy>, IDamagable
 {
@@ -20,6 +21,11 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     protected Calculator calculator;
 
     [SerializeField]
+    private Image healthBarImage;
+    [SerializeField]
+    private Transform damageTextParent;
+
+    [SerializeField]
     protected float timeToWaitIdleOnPatrol = 3f;
 
     protected bool aware;
@@ -30,8 +36,6 @@ public class Enemy : StateMachine<Enemy>, IDamagable
 
     protected bool canAttack = true;
     public bool CanAttack => canAttack;
-
-
 
     [SerializeField] protected Transform[] patrolPoints;
     protected Transform allPatrolPointsParent;
@@ -76,6 +80,8 @@ public class Enemy : StateMachine<Enemy>, IDamagable
     public void TakeDamage(int value)
     {
         dynamicStats.CurrentHealth -= value;
+
+        EventsManager.CallOnEnemyHealthBarChange(dynamicStats.CurrentHealth, BaseStats.GetStatFinalValue(BaseStatType.MaxHealth), healthBarImage);
 
         Die();
     }

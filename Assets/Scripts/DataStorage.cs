@@ -28,16 +28,26 @@ public class DataStorage : MonoBehaviour
     private UIManager uiManager;
     public static UIManager UIManager;
 
+    [SerializeField]
+    private DamagePopUpPool damagePopUpPool;
+    public static DamagePopUpPool DamagePopUpPool;
+
     private void Awake()
     {
         MouseInfo = mouseInfo;
-        mouseInfo.OnEnable();
 
         PlayerHand = playerHand;
         EmptyAbility = emptyAbility;
         Player = player;
         AllPatrolPointsParent = allPatrolPointsParent;
         UIManager = uiManager;
+        DamagePopUpPool = damagePopUpPool;
+    }
+
+    private void OnEnable()
+    {
+        mouseInfo.OnEnable();
+        
     }
 
 }

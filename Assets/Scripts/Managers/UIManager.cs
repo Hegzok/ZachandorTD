@@ -13,6 +13,10 @@ public class UIManager : MonoBehaviour
     private Slider healthBarSlider;
     [SerializeField]
     private Text healthBarText;
+    [SerializeField]
+    private GameObject enemyDamageTextPrefab;
+
+    private float elapsedTime;
 
     private Slot lastActiveSlot;
 
@@ -35,11 +39,13 @@ public class UIManager : MonoBehaviour
         {
             EventsManager.OnAbilityPickUpUI += SetIcon;
             EventsManager.OnBasicAttackPickUp += SetIcon;
+            EventsManager.OnEnemyHealthBarChange += ChangeEnemyHealthBar;
         }
         else
         {
             EventsManager.OnAbilityPickUpUI -= SetIcon;
             EventsManager.OnBasicAttackPickUp -= SetIcon;
+            EventsManager.OnEnemyHealthBarChange += ChangeEnemyHealthBar;
         }
     }
 
@@ -87,4 +93,46 @@ public class UIManager : MonoBehaviour
     {
         EventsManager.CallOnAbilityDiscard(index);
     }
+
+    private void ChangeEnemyHealthBar(float currentHealth, float maxHealth, Image healthBarImage)
+    {
+        float percentage = currentHealth / maxHealth;
+
+        healthBarImage.fillAmount = percentage;
+    }
+
+    //private void InstantiateEnemyDamageTakenText(float damage, Transform parentForDamageText)
+    //{
+    //    GameObject tempTextObject = Instantiate(enemyDamageTextPrefab, parentForDamageText.position, Quaternion.identity, parentForDamageText);
+
+    //    Text tempText = tempTextObject.GetComponent<Text>();
+
+    //    Mathf.RoundToInt(damage);
+
+    //    tempText.text = damage.ToString();
+
+    //    StartCoroutine(ScaleDownDamageText(tempTextObject, 3f));
+    //}
+
+    //private IEnumerator ScaleDownDamageText(GameObject damageTextObject, float timee)
+    //{
+    //    float elapsedTime = 0f;
+    //    Vector3 tempDamageTextScale = damageTextObject.transform.localScale;
+    //    Vector3 tempDamageTextPosition = damageTextObject.transform.position;
+    //    Destroy(damageTextObject, timee);
+
+    //    while (elapsedTime < timee)
+    //    {
+    //        elapsedTime += Time.deltaTime;
+    //        tempDamageTextPosition.y = Mathf.Lerp(tempDamageTextPosition.y, (tempDamageTextPosition.y + 0.01f), elapsedTime / timee);
+    //        damageTextObject.transform.position = tempDamageTextPosition;
+
+    //        tempDamageTextScale.x = Mathf.Lerp(1f, 0f, elapsedTime / timee);
+    //        tempDamageTextScale.y = Mathf.Lerp(1f, 0f, elapsedTime / timee);
+
+    //        damageTextObject.transform.localScale = tempDamageTextScale;
+
+    //        yield return null;
+    //    }
+    //}
 }

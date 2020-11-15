@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class EventsManager
 {
@@ -12,6 +13,12 @@ public class EventsManager
     public static UnityAction<int> OnHotkeyChosen;
     public static UnityAction<Ability> OnAbilityChosen;
     public static UnityAction<Enemy> OnEnemyDeath;
+    public static UnityAction<float, float, Image> OnEnemyHealthBarChange;
+
+    public static void CallOnEnemyHealthBarChange(float currentHealth, float maxHealth, Image healthBar)
+    {
+        OnEnemyHealthBarChange?.Invoke(currentHealth, maxHealth, healthBar);
+    }
 
     public static void CallOnEnemyDeath(Enemy enemy)
     {
